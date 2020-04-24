@@ -75,6 +75,4 @@ class Db
         $statement = self::executeStatement(func_get_args());
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
-
-
 }

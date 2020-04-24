@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="6af9afde-2732-4c37-a7d1-c2a0a0913157" name="xdomin" url="http://147.175.121.210:4480/wt2final">
+        <fileTransfer host="147.175.121.210" port="2280" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="2280" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

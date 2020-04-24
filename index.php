@@ -6,6 +6,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE); // Pri produkcii vypnut
 
 
 // Import základných tried pre fungovanie webu
+require_once 'app/class/core/Asset.php';
 require_once 'app/class/core/Router.php';
 require_once 'app/class/core/Db.php';
 
@@ -27,6 +28,8 @@ catch(PDOException $e) {
     echo($e->getMessage());
 }
 
+// Nastavanie priecinka pre assety (js/css etc.)
+Asset::setRootDir("/final/public");
 // Spracovanie URL a nastavenie pohladu
 Router::process();
 // Vypis hlavneho pohladu

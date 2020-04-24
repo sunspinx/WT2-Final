@@ -1,9 +1,39 @@
-navigacka
-<br><br>
+<!doctype html>
+<html lang="sk">
+<head>
+    <title>Final task</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?= Asset::get('css/bootstrap.min.css') ?>" type="text/css">
+    <link rel="stylesheet" href="<?= Asset::get('css/custom.css') ?>" type="text/css">
+    <script src="<?= Asset::get('js/jquery-3.1.1.min.js') ?>"></script>
+    <script src="<?= Asset::get('js/popper.min.js') ?>"></script>
+    <script src="<?= Asset::get('js/bootstrap.min.js') ?>"></script>
+    <script src="<?= Asset::get('js/main.js') ?>"></script>
+</head>
 
-<?php
-Router::writeContent("content");
-?>
-
-<br><br>
-footer
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-center text-lg-left" id="navbarNavAltMarkup">
+        <div class="navbar-nav navbar-nav mx-auto">
+            <a class="nav-item nav-link" href="">Page 1</a>
+            <a class="nav-item nav-link" href="">Page 2</a>
+            <a class="nav-item nav-link" href="">Page 3</a>
+        </div>
+        <div class="navbar-nav navbar-nav mx-right">
+            <a class="nav-item nav-link" href="javascript:;"><img src="<?= Asset::get('img/flags/sk.png'); ?>"></a>
+            <a class="nav-item nav-link" href="javascript:;"><img src="<?= Asset::get('img/flags/uk.png'); ?>"></a>
+        </div>
+    </div>
+</nav>
+<div class="content-wrapper">
+    <div class="container">
+        <?php
+        Router::writeContent("content");
+        ?>
+    </div>
+</div>
+<footer class="bg-dark">
+    Copyright (c) Vladislav Domin
+</footer>
