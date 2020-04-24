@@ -1,0 +1,59 @@
+body {
+    background-color: #f7f7f7;
+}
+
+* {color: #5e5e5e;}
+
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+label {
+    font-size: 18px;
+}
+
+.popover {
+    max-width: 500px;
+}
+
+.info {
+    max-width: 750px;
+    font-size: 18px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.info .col-6:first-child {
+    font-weight: bold;
+}
+
+.info .col-6:last-child{
+    text-align: right;
+}
+
+table img {
+    width: 42px;
+    height: 42px;
+}
+
+.table td {
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.link {
+    cursor: pointer;
+}
+
+#map {
+    height: 600px;
+}
