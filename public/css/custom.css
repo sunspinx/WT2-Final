@@ -33,10 +33,15 @@ label {
 
 .navbar-dark .navbar-nav .nav-link img {
     width: 30px;
+    opacity: 50%;
+}
+
+.navbar-dark .navbar-nav .nav-link.active img {
+    opacity: 100%;
 }
 
 .navbar-dark .navbar-nav .nav-link img:hover {
-    opacity: 50%;
+    opacity: 100%;
 }
 
 footer {

@@ -1,3 +1,10 @@
+<?php
+if(isset($_GET['lang'])) {
+    Helper::setLanguage($_GET['lang']);
+    Helper::route("");
+}
+?>
+
 <!doctype html>
 <html lang="sk">
 <head>
@@ -22,8 +29,8 @@
             <a class="nav-item nav-link" href="">Page 3</a>
         </div>
         <div class="navbar-nav navbar-nav mx-right">
-            <a class="nav-item nav-link" href="javascript:;"><img src="<?= Asset::get('img/flags/sk.png'); ?>"></a>
-            <a class="nav-item nav-link" href="javascript:;"><img src="<?= Asset::get('img/flags/uk.png'); ?>"></a>
+            <a class="nav-item nav-link <?= ($_COOKIE['language'] == "sk") ? "active" : "" ?>" href="index.php?lang=sk"><img src="<?= Asset::get('img/flags/sk.png'); ?>"></a>
+            <a class="nav-item nav-link <?= ($_COOKIE['language'] == "en") ? "active" : "" ?>" href="index.php?lang=en"><img src="<?= Asset::get('img/flags/uk.png'); ?>"></a>
         </div>
     </div>
 </nav>
