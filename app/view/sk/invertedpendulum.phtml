@@ -1,0 +1,75 @@
+<h1>Prevrátené kyvadlo</h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="angle">Uhol</label>
+        <input type="number" class="form-control" name="angle" id="angle" required>
+    </div>
+    <div class="form-group">
+        <label for="position">Pozícia</label>
+        <input type="number" class="form-control" name="position" id="position" required>
+    </div>
+    <div class="form-group">
+        <label for="r">r</label>
+        <input type="number" class="form-control" name="r" id="r" required>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="animation" name="animation" value="1" checked>
+        <label for="animation">Animácia</label>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="graph" name="graph" value="1" checked>
+        <label for="graph">Graf</label>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="send" value="Odoslať">
+    </div>
+</form>
+<?php
+if(isset($_POST['send'])):
+    $ir = trim($_POST['r']); $ip = trim($_POST['position']); $ia = trim($_POST['angle']);
+    $arrContextOptions=array(
+        "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+        'http' => array('ignore_errors' => true),
+    );
+    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=invertedpendulum&r={$ir}&angle={$ia}&position={$ip}", false, stream_context_create($arrContextOptions));
+    $arr = json_decode($arr, true);
+    if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
+        <div id="chart"></div>
+        <script>
+            var chart = new CanvasJS.Chart("chart", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "dark2", // "light1", "light2", "dark1", "dark2"
+                zoomEnabled: true,
+                title:{
+                    text: "Graf prevráteného kyvadla"
+                },
+                data: [{
+                    type: "line", //change type to bar, line, area, pie, etc
+                    //indexLabel: "{y}", //Shows y value on all Data Points
+                    indexLabelFontColor: "#5487c1",
+                    indexLabelPlacement: "outside",
+                    lineColor: "#5487c1",
+                    dataPoints: [{x:0,y:0}]
+                },{
+                    type: "line", //change type to bar, line, area, pie, etc
+                    //indexLabel: "{y}", //Shows y value on all Data Points
+                    indexLabelFontColor: "#dc8e39",
+                    indexLabelPlacement: "outside",
+                    lineColor: "#dc8e39",
+                    dataPoints: [{x:0,y:0}]
+                }]
+            });
+
+            chart.options.data[0].dataPoints = <?= json_encode($arr['position']); ?>;
+            chart.options.data[1].dataPoints = <?= json_encode($arr['angle']); ?>;
+            chart.render();
+        </script>
+    <?php endif;
+    if(isset($_POST['animation']) && $_POST['animation'] = 1): ?>
+        <div id="animation"></div>
+    <?php endif; ?>
+<?php endif;?>

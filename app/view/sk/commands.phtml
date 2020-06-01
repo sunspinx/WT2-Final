@@ -1,0 +1,21 @@
+<h1>Príkazy</h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="commands">Zadajte príkazy:</label>
+        <textarea class="form-control" name="commands" id="commands" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="send" value="Odoslať">
+    </div>
+</form>
+
+<?php
+if(isset($_POST['send'])):
+    $command = trim($_POST['commands']);
+    $output = ltrim(shell_exec('octave --no-gui --quiet --eval "pkg load control;'. $command .'"'));
+    ?>
+    <div class="form-group">
+        <label for="output">Výstup:</label>
+        <textarea class="form-control" name="output" id="output" rows="3" disabled><?= $output ?></textarea>
+    </div>
+<?php endif; ?>
