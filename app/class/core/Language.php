@@ -7,7 +7,6 @@ class Language
 
     public function setLanguage($language) {
         if($this->isLanguageAllowed($language)) {
-            echo('hi');
             setcookie('language', $language, time() + (86400 * 30 * 365), "/");
             return;
         }
