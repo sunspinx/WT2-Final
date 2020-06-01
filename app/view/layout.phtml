@@ -16,24 +16,13 @@ if(isset($_GET['lang'])) {
     <script src="<?= Asset::get('js/popper.min.js') ?>"></script>
     <script src="<?= Asset::get('js/bootstrap.min.js') ?>"></script>
     <script src="<?= Asset::get('js/main.js') ?>"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse text-center text-lg-left" id="navbarNavAltMarkup">
-        <div class="navbar-nav navbar-nav mx-auto">
-            <a class="nav-item nav-link" href="">Page 1</a>
-            <a class="nav-item nav-link" href="">Page 2</a>
-            <a class="nav-item nav-link" href="">Page 3</a>
-        </div>
-        <div class="navbar-nav navbar-nav mx-right">
-            <a class="nav-item nav-link <?= ($_COOKIE['language'] == "sk") ? "active" : "" ?>" href="index.php?lang=sk"><img src="<?= Asset::get('img/flags/sk.png'); ?>"></a>
-            <a class="nav-item nav-link <?= ($_COOKIE['language'] == "en") ? "active" : "" ?>" href="index.php?lang=en"><img src="<?= Asset::get('img/flags/uk.png'); ?>"></a>
-        </div>
-    </div>
-</nav>
+<?php
+include_once('app/view/nav.'.$_COOKIE['language'].'.phtml');
+?>
+
 <div class="content-wrapper">
     <div class="container">
         <?php
