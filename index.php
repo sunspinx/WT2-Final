@@ -36,6 +36,7 @@ if(!isset($_COOKIE['language']))
 // Nastavanie priecinka pre assety (js/css etc.)
 Asset::setRootDir("/final/public");
 // Spracovanie URL a nastavenie pohladu
+Router::$lang = Helper::getLanguage();
 Router::process();
 // Vypis hlavneho pohladu
 Router::writeContent("main");

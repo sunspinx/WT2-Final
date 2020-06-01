@@ -20,6 +20,4 @@ class Helper
         header("Connection: close");
         exit;
     }
-
-
 }
