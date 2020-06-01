@@ -1,18 +1,18 @@
 <?php
 
-
 class Router
 {
     private static $mainView = "layout";
     private static $contentView = "";
+    public static $lang = "";
 
     public static function process() {
         if (isset($_GET['p']))
             self::$contentView = $_GET['p'];
         else
-            self::$contentView = 'home';
+            self::$contentView = 'information';
         if (preg_match('/^[a-z0-9]+$/', self::$contentView)) {
-            $success = file_exists('app/view/' . self::$contentView . '.phtml');
+            $success = file_exists('app/view/' .self::$lang . '/' . self::$contentView . '.phtml');
             if (!$success)
                 self::$contentView = 'error404';
         } else
@@ -27,7 +27,7 @@ class Router
                 break;
             // Obsah
             case "content":
-                include "app/view/" . self::$contentView . ".phtml";
+                include "app/view/" . self::$lang . '/' . self::$contentView . ".phtml";
                 break;
             default:
                 break;
