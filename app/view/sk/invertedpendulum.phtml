@@ -1,11 +1,11 @@
-<h1>Prevrátené kyvadlo</h1>
+<h1><?php echo $translate[$_COOKIE['language']]["invertedPendulum"] ?></h1>
 <form method="POST">
     <div class="form-group">
-        <label for="angle">Uhol</label>
+        <label for="angle"><?php echo $translate[$_COOKIE['language']]["angle"] ?></label>
         <input type="number" class="form-control" name="angle" id="angle" required>
     </div>
     <div class="form-group">
-        <label for="position">Pozícia</label>
+        <label for="position"><?php echo $translate[$_COOKIE['language']]["position"] ?></label>
         <input type="number" class="form-control" name="position" id="position" required>
     </div>
     <div class="form-group">
@@ -14,14 +14,14 @@
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="animation" name="animation" value="1" checked>
-        <label for="animation">Animácia</label>
+        <label for="animation"><?php echo $translate[$_COOKIE['language']]["animation"] ?></label>
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="graph" name="graph" value="1" checked>
-        <label for="graph">Graf</label>
+        <label for="graph"><?php echo $translate[$_COOKIE['language']]["graph"] ?></label>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="send" value="Odoslať">
+        <input type="submit" class="btn btn-primary" name="send" value="<?php echo $translate[$_COOKIE['language']]['send'] ?>">
     </div>
 </form>
 <?php

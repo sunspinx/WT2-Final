@@ -1,35 +1,35 @@
-<h1 class="pb-4">API</h1>
-<h2>Inverzné kyvadlo [GET]</h2>
+<h1 class="pb-4"><?php echo $translate[$_COOKIE['language']]["api"] ?></h1>
+<h2><?php echo $translate[$_COOKIE['language']]["invertedPendulum"] ?> [GET]</h2>
 <label for="invertedpendulum">URL</label>
 <input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=invertedpendulum&r=(val)&position=(val)&angle=(val)">
-<label>Parametre</label>
+<label><?php echo $translate[$_COOKIE['language']]["params"] ?></label>
 <table class="table table-dark table-striped table-hover">
     <thead>
         <tr>
             <th>Argument</th>
-            <th>Popis</th>
+            <th><?php echo $translate[$_COOKIE['language']]["params"] ?></th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>key</td>
-            <td>Kľúč pre overenie</td>
+            <td><?php echo $translate[$_COOKIE['language']]["apikey"] ?></td>
         </tr>
         <tr>
             <td>model</td>
-            <td>Názov modelu</td>
+            <td><?php echo $translate[$_COOKIE['language']]["modelname"] ?>/td>
         </tr>
         <tr>
             <td>r</td>
-            <td>Hodnota "R"</td>
+            <td><?php echo $translate[$_COOKIE['language']]["rvalue"] ?></td>
         </tr>
         <tr>
             <td>position</td>
-            <td>Inicializačná pozícia</td>
+            <td><?php echo $translate[$_COOKIE['language']]["initposition"] ?></td>
         </tr>
         <tr>
             <td>angle</td>
-            <td>Inicializačný uhol</td>
+            <td><?php echo $translate[$_COOKIE['language']]["initangle"] ?></td>
         </tr>
     </tbody>
 </table>
