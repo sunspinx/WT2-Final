@@ -1,3 +1,0 @@
-arglist = argv();
-a = str2double(arglist{1});
-disp(a);
