@@ -12,7 +12,7 @@ class Router
         else
             self::$contentView = 'information';
         if (preg_match('/^[a-z0-9]+$/', self::$contentView)) {
-            $success = file_exists('app/view/' .self::$lang . '/' . self::$contentView . '.phtml');
+            $success = file_exists('app/view/' . self::$contentView . '.phtml');
             if (!$success)
                 self::$contentView = 'error404';
         } else
@@ -27,7 +27,7 @@ class Router
                 break;
             // Obsah
             case "content":
-                include "app/view/" . self::$lang . '/' . self::$contentView . ".phtml";
+                include "app/view/" . self::$contentView . ".phtml";
                 break;
             default:
                 break;
