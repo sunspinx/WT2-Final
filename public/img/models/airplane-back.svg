@@ -1,0 +1,21 @@
+<svg id="Vrstva_1" data-name="Vrstva 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 65 5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" y1="2.5" x2="65" y2="2.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f36d21"/>
+      <stop offset="0.17" stop-color="#ef6a20"/>
+      <stop offset="0.34" stop-color="#e3631f"/>
+      <stop offset="0.51" stop-color="#d0561c"/>
+      <stop offset="0.67" stop-color="#b44319"/>
+      <stop offset="0.84" stop-color="#902c14"/>
+      <stop offset="1" stop-color="#650f0e"/>
+      <stop offset="1" stop-color="#650f0e"/>
+    </linearGradient>
+  </defs>
+  <title>airplane-back</title>
+  <rect class="cls-1" width="65" height="5" rx="2.5"/>
+</svg>

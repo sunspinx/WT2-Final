@@ -1,0 +1,24 @@
+<svg id="Vrstva_1" data-name="Vrstva 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.17 286.46">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke-width: 3px;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke-width: 15px;
+        stroke-dasharray: 6;
+      }
+    </style>
+  </defs>
+  <title>pendulum</title>
+  <rect class="cls-1" x="171.7" y="306.35" width="283.46" height="14.17" rx="5.26" transform="translate(-304.85 456.66) rotate(-90)"/>
+  <line class="cls-2" x1="8.59" y1="280.71" x2="8.59" y2="5.75"/>
+</svg>
