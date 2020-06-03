@@ -10,7 +10,12 @@ require_once 'app/class/core/Asset.php';
 require_once 'app/class/core/Router.php';
 require_once 'app/class/core/Db.php';
 require_once 'app/class/core/Language.php';
+require_once 'app/class/core/Medoo.php';
 require_once 'app/class/Helper.php';
+
+include_once('config.php');
+use Medoo\Medoo;
+$medoo = new Medoo(['database_type' => 'mysql','database_name' => DBNAME,'server' => HOSTNAME,'username' => USERNAME,'password' => PASSWORD]);
 
 /**
  * Načíta danú triedu
@@ -22,7 +27,6 @@ function autoLoadClass($class)
     require_once "app/class/" . $class . ".php";
 }
 
-include_once('config.php');
 try {
     Db::connect(HOSTNAME, DBNAME, USERNAME, PASSWORD);
 }
