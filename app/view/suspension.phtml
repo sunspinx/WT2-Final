@@ -84,7 +84,7 @@ if(isset($_POST['send'])):
             function startInterval(){
               interval = setInterval(function(){
                 intervalRedraw();
-              }, 5000/count($arr['wheel']));
+              }, 5000/wheel_position.length);
             }
 
             function intervalRedraw() {
@@ -92,14 +92,14 @@ if(isset($_POST['send'])):
               sus_pos = car_position[counter]['y'];
               redraw();
               counter++;
-              if (counter == count(wheel_position)) {
+              if (counter == wheel_position.length) {
                 clearInterval(interval);
               }
             }
 
             function preload() {
-              wheel = loadImage('../../public/img/models/wheel.svg');
-              suspension = loadImage('../../public/img/models/suspension.svg');
+              wheel = loadImage('https://147.175.121.210:4480/final/public/img/models/wheel.svg');
+              suspension = loadImage('https://147.175.121.210:4480/final/public/img/models/suspension.svg');
             }
 
             function setup() {

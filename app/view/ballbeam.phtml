@@ -83,7 +83,7 @@ if(isset($_POST['send'])):
             function startInterval(){
               interval = setInterval(function(){
                 intervalRedraw();
-              }, 5000/count(position));
+              }, 5000/position.length);
             }
 
             function intervalRedraw() {
@@ -91,14 +91,14 @@ if(isset($_POST['send'])):
               beam_angle = angle[counter]['y'];
               redraw();
               counter++;
-              if (counter == count($arr['position'])) {
+              if (counter == position.length) {
                 clearInterval(interval);
               }
             }
 
             function preload() {
-              ball = loadImage('../../public/img/models/ball.svg');
-              beam = loadImage('../../public/img/models/beam.svg');
+              ball = loadImage('https://147.175.121.210:4480/final/public/img/models/ball.svg');
+              beam = loadImage('https://147.175.121.210:4480/final/public/img/models/beam.svg');
             }
 
             function setup() {

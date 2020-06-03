@@ -84,7 +84,7 @@ if(isset($_POST['send'])):
             function startInterval(){
               interval = setInterval(function(){
                 intervalRedraw();
-              }, 5000/count($arr['plane']));
+              }, 5000/plane.length;
             }
 
             function intervalRedraw() {
@@ -92,14 +92,14 @@ if(isset($_POST['send'])):
               pitch_angle = pitch[counter]['y'];
               redraw();
               counter++;
-              if (counter == count(plane)) {
+              if (counter == plane.length) {
                 clearInterval(interval);
               }
             }
 
             function preload() {
-              plane = loadImage('../../public/img/models/airplane.svg');
-              pitch = loadImage('../../public/img/models/airplane-back.svg');
+              plane = loadImage('https://147.175.121.210:4480/final/public/img/models/airplane.svg');
+              pitch = loadImage('https://147.175.121.210:4480/final/public/img/models/airplane-back.svg');
             }
 
             function setup() {
