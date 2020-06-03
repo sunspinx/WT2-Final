@@ -49,7 +49,8 @@ class Language
         'carposition' => "Pozícia vozidla",
         'wheelposition' => "Pozícia kolesa",
         'planeangle' => "Náklon lietadla",
-        'backangle' => "Náklod klapky"
+        'backangle' => "Náklod klapky",
+        'statsemailsend' => "Odoslanie štatistiky na mailovú adresu"
       ),
       'en' => array(
         'invertedPendulum' => "Inverted pendulum",
@@ -95,7 +96,8 @@ class Language
         'carposition' => "Car position",
         'wheelposition' => "Wheel position",
         'planeangle' => "Aircraft angle",
-        'backangle' => "Pitch angle"
+        'backangle' => "Pitch angle",
+        'statsemailsend' => "Send statistics to an email address"
       )
     );
 

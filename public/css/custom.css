@@ -54,3 +54,7 @@ footer {
     padding: 20px 30px;
     flex: 1;
 }
+
+tr.stats>td {
+  text-align: center;
+}

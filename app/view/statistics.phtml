@@ -1,1 +1,30 @@
 <h1><?php Helper::translate($_COOKIE['language'],"stats") ?></h1>
+<table class="table table-dark table-striped table-hover">
+    <thead>
+        <tr>
+            <th><?php Helper::translate($_COOKIE['language'],"invertedPendulum") ?></th>
+            <th><?php Helper::translate($_COOKIE['language'],"suspension") ?></th>
+            <th><?php Helper::translate($_COOKIE['language'],"ballbeam") ?></th>
+            <th><?php Helper::translate($_COOKIE['language'],"aircraftpitch") ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="stats">
+            <td>1</td>
+            <td>2</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<h1><?php Helper::translate($_COOKIE['language'],"statsemailsend") ?></h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="text" class="form-control" name="email" id="email" required>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="send" value="<?php Helper::translate($_COOKIE['language'],'send') ?>">
+    </div>
+</form>
