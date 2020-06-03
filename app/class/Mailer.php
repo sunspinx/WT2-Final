@@ -22,10 +22,10 @@ class Mailer
     {
         // Reťazce z parametrov sú prázdne
         if(empty($recipient) || empty($sender) || empty($subject) || empty($message))
-            throw new Exception('Žiaden parameter nesmie byť prázdny!');
+            throw new Exception(Helper::translate($_COOKIE['language'],"noemptyparams"));
         // Príjemcov email je zadaný zle
         if(!$this->isEmail($recipient))
-            throw new Exception('Príjemcov email bol zadaný chybne');
+            throw new Exception(Helper::translate($_COOKIE['language'],"wrongrecipient"));
 
         $head = 'From: ' . $sender;
         $head .= "\nMIME-Version: 1.0\n";
@@ -36,7 +36,7 @@ class Mailer
 
         // Odosielanie neprebehlo v poriadku
         if(!$success)
-            throw new Exception('Email nebol odoslaný');
+            throw new Exception(Helper::translate($_COOKIE['language'],"notsend"));
     }
 
     /**
@@ -55,7 +55,7 @@ class Mailer
     {
         // Reťazce z parametrov sú prázdne
         if(empty($recipients) || empty($sender) || empty($subject) || empty($message))
-            throw new Exception('Žiaden parameter nesmie byť prázdny!');
+            throw new Exception(Helper::translate($_COOKIE['language'],"noemptyparams"));
 
         $head = 'From: ' . $sender;
         $head .= "\nMIME-Version: 1.0\n";
@@ -70,7 +70,7 @@ class Mailer
                 $success = mb_send_mail(htmlspecialchars($email), htmlspecialchars($subject), $message, $head);
                 // Pri odosielani došlo k chybe
                 if(!$success)
-                    throw new Exception('Pri odosielaní správy na ' . $email . ' došlo k chybe.');
+                    throw new Exception(Helper::translate($_COOKIE['language'],"multisendproblem") . $email . Helper::translate($_COOKIE['language'],"multierror"));
             }
         }
     }

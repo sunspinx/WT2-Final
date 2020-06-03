@@ -13,6 +13,10 @@
 if(isset($_POST['send'])):
     $command = trim($_POST['commands']);
     $output = ltrim(shell_exec('octave --no-gui --quiet --eval "pkg load control;'. $command .'"'));
+    Db::$medoo->insert("commands",[
+      "command"=>$command,
+      "output"=>$output
+    ]);
     ?>
     <div class="form-group">
         <label for="output"><?php Helper::translate($_COOKIE['language'],"output") ?></label>

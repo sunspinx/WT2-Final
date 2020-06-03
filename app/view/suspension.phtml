@@ -38,7 +38,7 @@ if(isset($_POST['send'])):
     $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=suspension&r={$ir}&wheel={$iwp}&car={$icp}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
     if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
-        <div id="chart"></div>
+        <div id="chart" class="graph"></div>
         <script>
             var chart = new CanvasJS.Chart("chart", {
                 animationEnabled: true,
@@ -71,9 +71,11 @@ if(isset($_POST['send'])):
         </script>
     <?php endif;
     if(isset($_POST['animation']) && $_POST['animation'] = 1): ?>
-        <div id="animation"></div>
+        <div id='animationContainer' class="animation"></div>
         <script>
-            let x, y;
+            // nastavenie dlzky animacie
+            var time = 5000;
+
             let wheel_pos = 0;
             let sus_pos = 0;
             var wheel_position = <?= json_encode($arr['wheel']); ?>;
@@ -84,7 +86,7 @@ if(isset($_POST['send'])):
             function startInterval(){
               interval = setInterval(function(){
                 intervalRedraw();
-              }, 5000/wheel_position.length);
+              }, time/wheel_position.length);
             }
 
             function intervalRedraw() {
@@ -103,11 +105,13 @@ if(isset($_POST['send'])):
             }
 
             function setup() {
-              canvas=createCanvas(windowWidth, windowHeight);
-              canvas.parent('animation');
+              var width = document.getElementById('animationContainer').offsetWidth;
+              let myCanvas = createCanvas(width, 300);
+              myCanvas.parent('animationContainer');
               baseSize = width * 0.2;
               x = width * 0.5;
               y = height * 0.5;
+              startInterval();
             }
 
             function draw() {
@@ -116,7 +120,6 @@ if(isset($_POST['send'])):
               susMove(x, y, sus_pos);
               wheelMove(0,0,wheel_pos);
               pop();
-              startInterval();
             }
 
             function wheelMove(x,y,pos){

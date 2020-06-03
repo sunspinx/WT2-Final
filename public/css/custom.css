@@ -58,3 +58,8 @@ footer {
 tr.stats>td {
   text-align: center;
 }
+
+.animation, .graph {
+  width: 100%;
+  height: 300px;
+}
