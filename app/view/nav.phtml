@@ -4,23 +4,23 @@
     </button>
     <div class="collapse navbar-collapse text-center text-lg-left" id="navbarNavAltMarkup">
         <div class="navbar-nav navbar-nav mx-auto">
-            <a class="nav-item nav-link" href="index.php?p=information"><?php echo $translate[$_COOKIE['language']]["information"] ?></a>
+            <a class="nav-item nav-link" href="index.php?p=information"><?php Helper::translate($_COOKIE['language'],"information") ?></a>
             <!-- Dropdown -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    <?php echo $translate[$_COOKIE['language']]["models"] ?>
+                    <?php Helper::translate($_COOKIE['language'],"models") ?>
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="index.php?p=invertedpendulum"><?php echo $translate[$_COOKIE['language']]["invertedPendulum"] ?></a>
-                    <a class="dropdown-item" href="index.php?p=suspension"><?php echo $translate[$_COOKIE['language']]["suspension"] ?></a>
-                    <a class="dropdown-item" href="index.php?p=ballbeam"><?php echo $translate[$_COOKIE['language']]["ballbeam"] ?></a>
-                    <a class="dropdown-item" href="index.php?p=aircraftpitch"><?php echo $translate[$_COOKIE['language']]["aircraftpitch"] ?></a>
+                    <a class="dropdown-item" href="index.php?p=invertedpendulum"><?php Helper::translate($_COOKIE['language'],"invertedPendulum") ?></a>
+                    <a class="dropdown-item" href="index.php?p=suspension"><?php Helper::translate($_COOKIE['language'],"suspension") ?></a>
+                    <a class="dropdown-item" href="index.php?p=ballbeam"><?php Helper::translate($_COOKIE['language'],"ballbeam") ?></a>
+                    <a class="dropdown-item" href="index.php?p=aircraftpitch"><?php Helper::translate($_COOKIE['language'],"aircraftpitch") ?></a>
                 </div>
             </li>
-            <a class="nav-item nav-link" href="index.php?p=commands"><?php echo $translate[$_COOKIE['language']]["commands"] ?></a>
-            <a class="nav-item nav-link" href="index.php?p=api"><?php echo $translate[$_COOKIE['language']]["api"] ?></a>
-            <a class="nav-item nav-link" href="index.php?p=statistics"><?php echo $translate[$_COOKIE['language']]["stats"] ?></a>
-            <a class="nav-item nav-link" href="index.php?p=tasks"><?php echo $translate[$_COOKIE['language']]["tasks"] ?></a>
+            <a class="nav-item nav-link" href="index.php?p=commands"><?php Helper::translate($_COOKIE['language'],"commands") ?></a>
+            <a class="nav-item nav-link" href="index.php?p=api"><?php Helper::translate($_COOKIE['language'],"api") ?></a>
+            <a class="nav-item nav-link" href="index.php?p=statistics"><?php Helper::translate($_COOKIE['language'],"stats") ?></a>
+            <a class="nav-item nav-link" href="index.php?p=tasks"><?php Helper::translate($_COOKIE['language'],"tasks") ?></a>
         </div>
         <div class="navbar-nav navbar-nav mx-right">
             <a class="nav-item nav-link <?= ($_COOKIE['language'] == "sk") ? "active" : "" ?>" href="index.php?lang=sk"><img src="<?= Asset::get('img/flags/sk.png'); ?>"></a>

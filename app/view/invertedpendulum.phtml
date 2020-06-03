@@ -1,11 +1,11 @@
-<h1><?php echo $translate[$_COOKIE['language']]["invertedPendulum"] ?></h1>
+<h1><?php Helper::translate($_COOKIE['language'],"invertedPendulum") ?></h1>
 <form method="POST">
     <div class="form-group">
-        <label for="angle"><?php echo $translate[$_COOKIE['language']]["angle"] ?></label>
+        <label for="angle"><?php Helper::translate($_COOKIE['language'],"angle") ?></label>
         <input type="number" class="form-control" name="angle" id="angle" required>
     </div>
     <div class="form-group">
-        <label for="position"><?php echo $translate[$_COOKIE['language']]["position"] ?></label>
+        <label for="position"><?php Helper::translate($_COOKIE['language'],"position") ?></label>
         <input type="number" class="form-control" name="position" id="position" required>
     </div>
     <div class="form-group">
@@ -14,14 +14,14 @@
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="animation" name="animation" value="1" checked>
-        <label for="animation"><?php echo $translate[$_COOKIE['language']]["animation"] ?></label>
+        <label for="animation"><?php Helper::translate($_COOKIE['language'],"animation") ?></label>
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="graph" name="graph" value="1" checked>
-        <label for="graph"><?php echo $translate[$_COOKIE['language']]["graph"] ?></label>
+        <label for="graph"><?php Helper::translate($_COOKIE['language'],"graph") ?></label>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="send" value="<?php echo $translate[$_COOKIE['language']]['send'] ?>">
+        <input type="submit" class="btn btn-primary" name="send" value="<?php Helper::translate($_COOKIE['language'],'send') ?>">
     </div>
 </form>
 <?php

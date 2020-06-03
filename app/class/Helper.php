@@ -20,4 +20,9 @@ class Helper
         header("Connection: close");
         exit;
     }
+
+    public static function translate($language, $term){
+        $lan = new Language();
+        return $lan->translate($language,$term);
+    }
 }
