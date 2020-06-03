@@ -7,9 +7,13 @@ class Language
     private $translate = array(
       'sk' => array(
         'invertedPendulum' => "Prevrátené kyvadlo",
+        'invertedPendulumgraph' => "Graf prevráteného kyvadla",
         'suspension' => "Tlmič na automobile",
+        'suspensiongraph' => "Graf tlmiča na automobile",
         'ballbeam' => "Gulička na tyči",
+        'ballbeamgraph' => "Graf guličky na tyči",
         'aircraftpitch' => "Náklon lietadla",
+        'aircraftpitchgraph' => "Graf náklonu lietadla",
         'angle' => "Uhol",
         'position' => "Pozícia",
         'animation' => "Animácia",
@@ -41,13 +45,21 @@ class Language
         'modelname' => "Názov modelu",
         'rvalue' => 'Hodnota "R"',
         'initposition' => "Inicializačná pozícia",
-        'initangle' => "Inicializačný uhol"
+        'initangle' => "Inicializačný uhol",
+        'carposition' => "Pozícia vozidla",
+        'wheelposition' => "Pozícia kolesa",
+        'planeangle' => "Náklon lietadla",
+        'backangle' => "Náklod klapky"
       ),
       'en' => array(
         'invertedPendulum' => "Inverted pendulum",
+        'invertedPendulumgraph' => "Inverted pendulum graph",
         'suspension' => "Suspension",
+        'suspensiongraph' => "Suspension graph",
         'ballbeam' => "Ball beam",
+        'ballbeamgraph' => "Ball beam graph",
         'aircraftpitch' => "Aircraft pitch",
+        'aircraftpitchgraph' => "Aircraft pitch graph",
         'angle' => "Angle",
         'position' => "Position",
         'animation' => "Animation",
@@ -79,7 +91,11 @@ class Language
         'modelname' => "Model name",
         'rvalue' => '"R" value',
         'initposition' => "Initialization position",
-        'initangle' => "Initialization angle"
+        'initangle' => "Initialization angle",
+        'carposition' => "Car position",
+        'wheelposition' => "Wheel position",
+        'planeangle' => "Aircraft angle",
+        'backangle' => "Pitch angle"
       )
     );
 

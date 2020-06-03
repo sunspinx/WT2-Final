@@ -1,12 +1,12 @@
-<h1><?php Helper::translate($_COOKIE['language'],"ballbeam") ?></h1>
+<h1><?php Helper::translate($_COOKIE['language'],"aircraftpitch") ?></h1>
 <form method="POST">
     <div class="form-group">
-        <label for="angle"><?php Helper::translate($_COOKIE['language'],"angle") ?></label>
-        <input type="number" class="form-control" name="angle" id="angle" required>
+        <label for="planeangle"><?php Helper::translate($_COOKIE['language'],"planeangle") ?></label>
+        <input type="number" class="form-control" name="planeangle" id="planeangle" required>
     </div>
     <div class="form-group">
-        <label for="position"><?php Helper::translate($_COOKIE['language'],"position") ?></label>
-        <input type="number" class="form-control" name="position" id="position" required>
+        <label for="backangle"><?php Helper::translate($_COOKIE['language'],"backangle") ?></label>
+        <input type="number" class="form-control" name="backangle" id="backangle" required>
     </div>
     <div class="form-group">
         <label for="r">r</label>
@@ -26,7 +26,7 @@
 </form>
 <?php
 if(isset($_POST['send'])):
-    $ir = trim($_POST['r']); $ip = trim($_POST['position']); $ia = trim($_POST['angle']);
+    $ir = trim($_POST['r']); $ipa = trim($_POST['planeangle']); $ipa = trim($_POST['backangle']);
     $arrContextOptions=array(
         "ssl"=>array(
             "verify_peer"=>false,
@@ -34,7 +34,7 @@ if(isset($_POST['send'])):
         ),
         'http' => array('ignore_errors' => true),
     );
-    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=invertedpendulum&r={$ir}&angle={$ia}&position={$ip}", false, stream_context_create($arrContextOptions));
+    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=suspension&r={$ir}&plane={$iwp}&pitch={$icp}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
     if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
         <div id="chart"></div>
@@ -45,7 +45,7 @@ if(isset($_POST['send'])):
                 theme: "dark2", // "light1", "light2", "dark1", "dark2"
                 zoomEnabled: true,
                 title:{
-                    text: "<?php Helper::translate($_COOKIE["language"],"ballbeamgraph") ?>"
+                    text: "<?php Helper::translate($_COOKIE["language"],"aircraftpitch") ?>"
                 },
                 data: [{
                     type: "line", //change type to bar, line, area, pie, etc
@@ -64,40 +64,41 @@ if(isset($_POST['send'])):
                 }]
             });
 
-            chart.options.data[0].dataPoints = <?= json_encode($arr['position']); ?>;
-            chart.options.data[1].dataPoints = <?= json_encode($arr['angle']); ?>;
+            chart.options.data[0].dataPoints = <?= json_encode($arr['plane']); ?>;
+            chart.options.data[1].dataPoints = <?= json_encode($arr['pitch']); ?>;
             chart.render();
         </script>
     <?php endif;
     if(isset($_POST['animation']) && $_POST['animation'] = 1): ?>
         <div id="animation"></div>
         <script>
+            let x, y;
+            let plane_angle = 0;
+            let pitch_angle = 0;
+            var plane = $arr['plane'];
+            var pitch = $arr['pitch'];
             let x, y, baseSize, counter = 0;
-            let ball_pos = 0;
-            let beam_angle = 0;
             var interval;
-            var position = $arr['position'];
-            var angle = $arr['angle'];
 
             function startInterval(){
               interval = setInterval(function(){
                 intervalRedraw();
-              }, 5000/count($arr['position']));
+              }, 5000/count($arr['plane']));
             }
 
             function intervalRedraw() {
-              ball_pos = position[counter]['y'];
-              beam_angle = angle[counter]['y'];
+              plane_angle = plane[counter]['y'];
+              pitch_angle = pitch[counter]['y'];
               redraw();
               counter++;
-              if (counter == count($arr['position'])) {
+              if (counter == count($arr['plane'])) {
                 clearInterval(interval);
               }
             }
 
             function preload() {
-              ball = loadImage('http://localhost:443/final/public/img/models/ball.svg');
-              beam = loadImage('http://localhost:443/final/public/img/models/beam.svg');
+              plane = loadImage('http://localhost:443/final/public/img/models/airplane.svg');
+              pitch = loadImage('http://localhost:443/final/public/img/models/airplane-back.svg');
             }
 
             function setup() {
@@ -111,21 +112,22 @@ if(isset($_POST['send'])):
             function draw() {
               clear();
               push();
-              beamMove(x, y, beam_angle);
-              ballMove(0,0, ball_pos);
+              airplane(x,y,plane_angle);
+              airplaneBack(baseSize*0.53, 0, pitch_angle);
               pop();
               startInterval();
             }
 
-            function beamMove(x,y,rot){
-              translate(x,y,rot);
+            function airplane(x,y,rot){
+              translate(x,y,a);
               rotate(rot);
-              image(beam, -(baseSize*1.5), 0, baseSize*3, baseSize*0.1);
+              image(body, -baseSize, -(baseSize*0.57), baseSize*2, baseSize);
             }
 
-            function ballMove(x, y, pos) {
+            function airplaneBack(x, y, rot) {
               translate(x, y);
-              image(ball,0+pos,-(baseSize*0.4),(baseSize*0.4),(baseSize*0.4));
+              rotate(rot);
+              image(back,0,0,baseSize*0.17,baseSize*0.02);
             }
 
             function windowResized() {
