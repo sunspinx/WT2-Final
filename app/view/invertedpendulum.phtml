@@ -79,8 +79,8 @@ if(isset($_POST['send'])):
             let beam_pos = 0;
             let pendulum_rot = 0;
             var interval;
-            var position = $arr['position'];
-            var angle = $arr['angle'];
+            var position = <?= json_encode($arr['position']); ?>;
+            var angle = <?= json_encode($arr['angle']); ?>;
 
             function startInterval(){
               interval = setInterval(function(){
@@ -93,14 +93,14 @@ if(isset($_POST['send'])):
               pendulum_rot = angle[counter]['y'];
               redraw();
               counter++;
-              if (counter == count($arr['position'])) {
+              if (counter == count(position) {
                 clearInterval(interval);
               }
             }
 
             function preload() {
-              pendulum = loadImage('http://localhost:443/final/public/img/models/pendulum.svg');
-              beam = loadImage('http://localhost:443/final/public/img/models/pendulum_beam.svg');
+              pendulum = loadImage('../../public/img/models/pendulum.svg');
+              beam = loadImage('../../public/img/models/pendulum_beam.svg');
             }
 
             function setup() {

@@ -76,8 +76,8 @@ if(isset($_POST['send'])):
             let x, y;
             let wheel_pos = 0;
             let sus_pos = 0;
-            var wheel_position = $arr['wheel'];
-            var car_position = $arr['car'];
+            var wheel_position = <?= json_encode($arr['wheel']); ?>;
+            var car_position = <?= json_encode($arr['car']); ?>;
             let x, y, baseSize, counter = 0;
             var interval;
 
@@ -92,14 +92,14 @@ if(isset($_POST['send'])):
               sus_pos = car_position[counter]['y'];
               redraw();
               counter++;
-              if (counter == count($arr['wheel'])) {
+              if (counter == count(wheel_position)) {
                 clearInterval(interval);
               }
             }
 
             function preload() {
-              wheel = loadImage('http://localhost:443/final/public/img/models/wheel.svg');
-              suspension = loadImage('http://localhost:443/final/public/img/models/suspension.svg');
+              wheel = loadImage('../../public/img/models/wheel.svg');
+              suspension = loadImage('../../public/img/models/suspension.svg');
             }
 
             function setup() {

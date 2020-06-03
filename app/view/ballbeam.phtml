@@ -77,13 +77,13 @@ if(isset($_POST['send'])):
             let ball_pos = 0;
             let beam_angle = 0;
             var interval;
-            var position = $arr['position'];
-            var angle = $arr['angle'];
+            var position = <?= json_encode($arr['position']); ?>;
+            var angle = <?= json_encode($arr['angle']); ?>;
 
             function startInterval(){
               interval = setInterval(function(){
                 intervalRedraw();
-              }, 5000/count($arr['position']));
+              }, 5000/count(position));
             }
 
             function intervalRedraw() {
@@ -97,8 +97,8 @@ if(isset($_POST['send'])):
             }
 
             function preload() {
-              ball = loadImage('http://localhost:443/final/public/img/models/ball.svg');
-              beam = loadImage('http://localhost:443/final/public/img/models/beam.svg');
+              ball = loadImage('../../public/img/models/ball.svg');
+              beam = loadImage('../../public/img/models/beam.svg');
             }
 
             function setup() {

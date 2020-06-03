@@ -76,8 +76,8 @@ if(isset($_POST['send'])):
             let x, y;
             let plane_angle = 0;
             let pitch_angle = 0;
-            var plane = $arr['plane'];
-            var pitch = $arr['pitch'];
+            var plane = <?= json_encode($arr['plane']); ?>;
+            var pitch = <?= json_encode($arr['pitch']); ?>;
             let x, y, baseSize, counter = 0;
             var interval;
 
@@ -92,14 +92,14 @@ if(isset($_POST['send'])):
               pitch_angle = pitch[counter]['y'];
               redraw();
               counter++;
-              if (counter == count($arr['plane'])) {
+              if (counter == count(plane)) {
                 clearInterval(interval);
               }
             }
 
             function preload() {
-              plane = loadImage('http://localhost:443/final/public/img/models/airplane.svg');
-              pitch = loadImage('http://localhost:443/final/public/img/models/airplane-back.svg');
+              plane = loadImage('../../public/img/models/airplane.svg');
+              pitch = loadImage('../../public/img/models/airplane-back.svg');
             }
 
             function setup() {

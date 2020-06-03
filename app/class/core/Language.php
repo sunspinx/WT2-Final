@@ -50,7 +50,12 @@ class Language
         'wheelposition' => "Pozícia kolesa",
         'planeangle' => "Náklon lietadla",
         'backangle' => "Náklod klapky",
-        'statsemailsend' => "Odoslanie štatistiky na mailovú adresu"
+        'statsemailsend' => "Odoslanie štatistiky na mailovú adresu",
+        'noemptyparams' => "Žiaden parameter nesmie byť prázdny!",
+        'wrongrecipient' => "Príjemcov email bol zadaný chybne",
+        'notsend' => "Email nebol odoslaný",
+        'multisendproblem' => "Pri odosielaní správy na ",
+        'multierror' => " došlo k chybe."
       ),
       'en' => array(
         'invertedPendulum' => "Inverted pendulum",
@@ -97,7 +102,12 @@ class Language
         'wheelposition' => "Wheel position",
         'planeangle' => "Aircraft angle",
         'backangle' => "Pitch angle",
-        'statsemailsend' => "Send statistics to an email address"
+        'statsemailsend' => "Send statistics to an email address",
+        'noemptyparams' => "No parameter can be empty!",
+        'wrongrecipient' => "Recipient's email was entered incorrectly",
+        'notsend' => "Email not sent",
+        'multisendproblem' => "When sending a message to ",
+        'multierror' => " an error occurred."
       )
     );
 
