@@ -1,4 +1,7 @@
 <?php
+include_once('config.php');
+use Medoo\Medoo;
+$medoo = new Medoo(['database_type' => 'mysql','database_name' => DBNAME,'server' => HOSTNAME,'username' => USERNAME,'password' => PASSWORD]);
 if(isset($_GET['lang'])) {
     Helper::setLanguage($_GET['lang']);
     Helper::route("");

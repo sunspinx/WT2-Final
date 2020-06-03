@@ -10,10 +10,10 @@
     </thead>
     <tbody>
         <tr class="stats">
-            <td><?php $medoo->get("stats","visitors",["page_name"=>"pendulum"])?></td>
-            <td><?php $medoo->get("stats","visitors",["page_name"=>"suspension"])?></td>
-            <td><?php $medoo->get("stats","visitors",["page_name"=>"ballbeam"])?></td>
-            <td><?php $medoo->get("stats","visitors",["page_name"=>"aircraft"])?></td>
+            <td><?php Db::$medoo->get("stats","visitors",["page_name"=>"pendulum"])?></td>
+            <td><?php Db::$medoo->get("stats","visitors",["page_name"=>"suspension"])?></td>
+            <td><?php Db::$medoo->get("stats","visitors",["page_name"=>"ballbeam"])?></td>
+            <td><?php Db::$medoo->get("stats","visitors",["page_name"=>"aircraft"])?></td>
         </tr>
     </tbody>
 </table>

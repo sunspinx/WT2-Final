@@ -14,8 +14,7 @@ require_once 'app/class/core/Medoo.php';
 require_once 'app/class/Helper.php';
 
 include_once('config.php');
-use Medoo\Medoo;
-$medoo = new Medoo(['database_type' => 'mysql','database_name' => DBNAME,'server' => HOSTNAME,'username' => USERNAME,'password' => PASSWORD]);
+
 
 /**
  * Načíta danú triedu
@@ -27,12 +26,7 @@ function autoLoadClass($class)
     require_once "app/class/" . $class . ".php";
 }
 
-try {
-    Db::connect(HOSTNAME, DBNAME, USERNAME, PASSWORD);
-}
-catch(PDOException $e) {
-    echo($e->getMessage());
-}
+Db::connect(HOSTNAME, USERNAME, PASSWORD, DBNAME);
 
 // Nastavenie jazyka
 if(!isset($_COOKIE['language']))
