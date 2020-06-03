@@ -50,6 +50,7 @@ class Language
         'aircraftpitch' => "Aircraft pitch",
         'angle' => "Angle",
         'position' => "Position",
+        'animation' => "Animation",
         'graph' => "Graph",
         'send' => "Send",
         'models' => "Models",
