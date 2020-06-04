@@ -38,7 +38,7 @@ if(isset($_POST['send'])):
       "output"=> gettype($arr)
     ]);
     $_SESSION['invertedpendulum'] = $arr['continue'];
-    var_dump($arr);
+
     if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
         <div id="chart" class="graph"></div>
         <script>

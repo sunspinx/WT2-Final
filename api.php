@@ -91,20 +91,29 @@ if(!empty($_GET)) {
         ]);
         return;
     }
-    else if($_GET['model'] == "suspension") {
-        if(!isset($_GET['wheel']) || !(isset($_GET['car'])) || !(isset($_GET['r']))) {
+    else if($_GET['model'] == "ballbeam") {
+        if(!(isset($_GET['r']))) {
             http_response_code(422);
             echo json_encode([
                 'message' => 'Not all parameters were set.',
             ]);
             return;
         }
-        $out = trim(shell_exec("octave --no-gui --quiet shell/kyvadlo.txt {$_GET['r']} {$_GET['angle']} {$_GET['position']}"));
-        $arr = preg_split("/\\r\\n|\\r|\\n/", trim(explode("ANGLE", $out)[0]));
-        $arr2 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("ANGLE", $out)[1]));
+        $poss = '[0;0;0;0]';
+        if(isset($_GET['position']) && !empty($_GET['position'])) {
+            $poss = $_GET['position'];
+        }
+        $out = ltrim(shell_exec('octave --no-gui --quiet --eval "pkg load control;'. Model::getBallBeam($_GET['r'], $poss) .'"'));
+        $arr = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[0]));
+        $arr2 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[1]));
+        $arr3 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[2]));
         $init = 0.0;
         $pos = [];
         $angle = [];
+        $continue = '['. (float)trim($arr3[0]).';'.(float)trim($arr3[1]).';'.(float)trim($arr3[2]).';'.(float)trim($arr3[3]).']';
+
+        array_shift($arr);
+        array_shift($arr2);
         for($i = 0; $i < sizeof($arr); $i++) {
             $pos[] = [
                 'y' => (float)trim($arr[$i]),
@@ -114,29 +123,38 @@ if(!empty($_GET)) {
                 'y' => (float)trim($arr2[$i]),
                 'x' => $init,
             ];
-            $init += 0.05;
+            $init += 0.01;
         }
+
         http_response_code(200);
         echo json_encode([
             'position' => $pos,
             'angle' => $angle,
+            'continue' => $continue,
         ]);
         return;
     }
-    else if($_GET['model'] == "ballbeam") {
-        if(!isset($_GET['angle']) || !(isset($_GET['position'])) || !(isset($_GET['r']))) {
+    else if($_GET['model'] == "suspension") {
+        if(!(isset($_GET['r']))) {
             http_response_code(422);
             echo json_encode([
                 'message' => 'Not all parameters were set.',
             ]);
             return;
         }
-        $out = trim(shell_exec("octave --no-gui --quiet shell/kyvadlo.txt {$_GET['r']} {$_GET['angle']} {$_GET['position']}"));
-        $arr = preg_split("/\\r\\n|\\r|\\n/", trim(explode("ANGLE", $out)[0]));
-        $arr2 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("ANGLE", $out)[1]));
+        $poss = '[0;0;0;0;0]';
+        if(isset($_GET['position']) && !empty($_GET['position'])) {
+            $poss = $_GET['position'];
+        }
+        $out = ltrim(shell_exec('octave --no-gui --quiet --eval "pkg load control;'. Model::getCarSuspension($_GET['r'], $poss) .'"'));
+        $arr = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[0]));
+        $arr2 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[1]));
+        $arr3 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[2]));
         $init = 0.0;
         $pos = [];
         $angle = [];
+        $continue = '['. (float)trim($arr3[0]).';'.(float)trim($arr3[1]).';'.(float)trim($arr3[2]).';'.(float)trim($arr3[3]).';0]';
+
         for($i = 0; $i < sizeof($arr); $i++) {
             $pos[] = [
                 'y' => (float)trim($arr[$i]),
@@ -146,29 +164,38 @@ if(!empty($_GET)) {
                 'y' => (float)trim($arr2[$i]),
                 'x' => $init,
             ];
-            $init += 0.05;
+            $init += 0.01;
         }
+
         http_response_code(200);
         echo json_encode([
-            'position' => $pos,
-            'angle' => $angle,
+            'wheel' => $pos,
+            'car' => $angle,
+            'continue' => $continue,
         ]);
         return;
     }
     else if($_GET['model'] == "aircraftpitch") {
-        if(!isset($_GET['angle']) || !(isset($_GET['position'])) || !(isset($_GET['r']))) {
+        if(!(isset($_GET['r']))) {
             http_response_code(422);
             echo json_encode([
                 'message' => 'Not all parameters were set.',
             ]);
             return;
         }
-        $out = trim(shell_exec("octave --no-gui --quiet shell/kyvadlo.txt {$_GET['r']} {$_GET['angle']} {$_GET['position']}"));
-        $arr = preg_split("/\\r\\n|\\r|\\n/", trim(explode("ANGLE", $out)[0]));
-        $arr2 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("ANGLE", $out)[1]));
+        $poss = '[0;0;0]';
+        if(isset($_GET['position']) && !empty($_GET['position'])) {
+            $poss = $_GET['position'];
+        }
+        $out = ltrim(shell_exec('octave --no-gui --quiet --eval "pkg load control;'. Model::getAircraftPitch($_GET['r'], $poss) .'"'));
+        $arr = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[0]));
+        $arr2 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[1]));
+        $arr3 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[2]));
         $init = 0.0;
         $pos = [];
         $angle = [];
+        $continue = '['. (float)trim($arr3[0]).';'.(float)trim($arr3[1]).';'.(float)trim($arr3[2]).']';
+
         for($i = 0; $i < sizeof($arr); $i++) {
             $pos[] = [
                 'y' => (float)trim($arr[$i]),
@@ -178,12 +205,14 @@ if(!empty($_GET)) {
                 'y' => (float)trim($arr2[$i]),
                 'x' => $init,
             ];
-            $init += 0.05;
+            $init += 0.01;
         }
+
         http_response_code(200);
         echo json_encode([
-            'position' => $pos,
-            'angle' => $angle,
+            'plane' => $pos,
+            'pitch' => $angle,
+            'continue' => $continue,
         ]);
         return;
     }

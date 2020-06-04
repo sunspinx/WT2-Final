@@ -2,15 +2,7 @@
 <h1><?php Helper::translate($_COOKIE['language'],"aircraftpitch") ?></h1>
 <form method="POST">
     <div class="form-group">
-        <label for="planeangle"><?php Helper::translate($_COOKIE['language'],"planeangle") ?></label>
-        <input type="number" class="form-control" name="planeangle" id="planeangle" required>
-    </div>
-    <div class="form-group">
-        <label for="backangle"><?php Helper::translate($_COOKIE['language'],"backangle") ?></label>
-        <input type="number" class="form-control" name="backangle" id="backangle" required>
-    </div>
-    <div class="form-group">
-        <label for="r">r</label>
+        <label for="r">Nový náklon lietadla</label>
         <input type="number" class="form-control" name="r" id="r" required>
     </div>
     <div class="form-check">
@@ -27,7 +19,7 @@
 </form>
 <?php
 if(isset($_POST['send'])):
-    $ir = trim($_POST['r']); $ipa = trim($_POST['planeangle']); $ipa = trim($_POST['backangle']);
+    $ir = trim($_POST['r']);
     $arrContextOptions=array(
         "ssl"=>array(
             "verify_peer"=>false,
@@ -35,8 +27,9 @@ if(isset($_POST['send'])):
         ),
         'http' => array('ignore_errors' => true),
     );
-    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=suspension&r={$ir}&plane={$iwp}&pitch={$icp}", false, stream_context_create($arrContextOptions));
+    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=aircraftpitch&r={$ir}&position={$_SESSION['aircraft']}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
+    $_SESSION['aircraft'] = $arr['continue'];
     if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
         <div id="chart" class="graph"></div>
         <script>
