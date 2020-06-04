@@ -8,14 +8,67 @@
         <input type="submit" class="btn btn-primary" name="send" value="<?php Helper::translate($_COOKIE['language'],'send') ?>">
     </div>
 </form>
+<h1><?php Helper::translate($_COOKIE['language'],"exportoption") ?></h1>
+<form method="POST">
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="pdfexport" value="<?php Helper::translate($_COOKIE['language'],'pdfexport') ?>">
+    </div>
+</form>
+<form method="POST">
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="csvexport" value="<?php Helper::translate($_COOKIE['language'],'csvexport') ?>">
+    </div>
+</form>
 
 <?php
 if(isset($_POST['send'])):
     $command = trim($_POST['commands']);
     $output = ltrim(shell_exec('octave --no-gui --quiet --eval "pkg load control;'. $command .'"'));
+    Db::$medoo->insert("commands",[
+      "command"=>$command,
+      "output"=>$output
+    ]);
     ?>
     <div class="form-group">
         <label for="output"><?php Helper::translate($_COOKIE['language'],"output") ?></label>
         <textarea class="form-control" name="output" id="output" rows="3" disabled><?= $output ?></textarea>
     </div>
-<?php endif; ?>
+<?php endif;
+if (isset($_POST['pdfexport'])) {
+    ob_start();
+    $result = Db::$medoo->select("commands",["date","command","output"],[]);
+    $header = array('Date','Command','Output');
+
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Helvetica','',8);
+
+    foreach($header as $heading) {
+        $pdf->Cell(63,5,$heading,1);
+    }
+    foreach($result as $row) {
+      $pdf->Ln();
+      foreach($row as $column)
+        $pdf->Cell(63,5,$column,1);
+    }
+    $pdf->Output('D','commandlog.pdf');
+    ob_end_flush();
+}
+if (isset($_POST['csvexport'])) {
+    $result = Db::$medoo->select("commands",["date","command","output"],[]);
+
+    ob_clean();
+    ob_start();
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=commandlog.csv');
+    $output = fopen('php://output', 'w');
+    fputcsv($output, array('Date', 'Command', 'Output'));
+    if (count($result) > 0) {
+        foreach ($result as $row) {
+            fputcsv($output, $row);
+        }
+    }
+    ob_end_flush();
+    die();
+}
+?>

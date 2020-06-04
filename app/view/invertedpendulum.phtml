@@ -40,7 +40,7 @@ if(isset($_POST['send'])):
     $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=invertedpendulum&r={$ir}&angle={$ia}&position={$ip}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
     if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
-        <div id="chart"></div>
+        <div id="chart" class="graph"></div>
         <script>
             var chart = new CanvasJS.Chart("chart", {
                 animationEnabled: true,
@@ -73,67 +73,73 @@ if(isset($_POST['send'])):
         </script>
     <?php endif;
     if(isset($_POST['animation']) && $_POST['animation'] = 1): ?>
-        <div id="animation"></div>
+        <div id='animationContainer' class="animation"></div>
         <script>
-            let x, y, baseSize, counter = 0;
-            let beam_pos = 0;
-            let pendulum_rot = 0;
-            var interval;
-            var position = $arr['position'];
-            var angle = $arr['angle'];
+          // nastavenie dlzky animacie
+          var time = 5000;
+          // nastavenie koeficientu prepočtu pohybu, rýchlosť pohybu "beam"
+          var coeficient = 10;
 
-            function startInterval(){
-              interval = setInterval(function(){
-                intervalRedraw();
-              }, 5000/count($arr['position']));
-            }
+          let x, y, baseSize, counter = 0;
+          let beam_pos = 0;
+          let pendulum_rot = 0;
+          var interval;
+          var position = <?= json_encode($arr['position']); ?>;
+          var angle = <?= json_encode($arr['angle']); ?>;
 
-            function intervalRedraw() {
-              beam_pos = position[counter]['y'];
-              pendulum_rot = angle[counter]['y'];
-              redraw();
-              counter++;
-              if (counter == count($arr['position'])) {
-                clearInterval(interval);
-              }
-            }
+          function startInterval(){
+            interval = setInterval(function(){
+              intervalRedraw();
+            }, time/position.length);
+          }
 
-            function preload() {
-              pendulum = loadImage('http://localhost:443/final/public/img/models/pendulum.svg');
-              beam = loadImage('http://localhost:443/final/public/img/models/pendulum_beam.svg');
+          function intervalRedraw() {
+            beam_pos = position[counter]['y'];
+            pendulum_rot = angle[counter]['y'];
+            redraw();
+            counter++;
+            if (counter == position.length) {
+              clearInterval(interval);
             }
+          }
 
-            function setup() {
-              canvas=createCanvas(windowWidth, windowHeight);
-              canvas.parent('animation');
-              baseSize = width * 0.2;
-              x = width * 0.5;
-              y = height * 0.5;
-            }
+          function preload() {
+            pendulum = loadImage('https://147.175.121.210:4480/final/public/img/models/pendulum.svg');
+            beam = loadImage('https://147.175.121.210:4480/final/public/img/models/pendulum_beam.svg');
+          }
 
-            function draw() {
-              clear();
-              push();
-              beamMove(x, y, beam_pos);
-              pendulumMove(0,0,pendulum_rot, beam_pos);
-              pop();
-              startInterval();
-            }
+          function setup() {
+            var width = document.getElementById('animationContainer').offsetWidth;
+            let myCanvas = createCanvas(width, 300);
+            myCanvas.parent('animationContainer');
+            baseSize = width * 0.2;
+            x = width * 0.5;
+            y = height * 0.9;
+            startInterval();
+          }
 
-            function beamMove(x,y,pos){
-              translate(x,y);
-              image(beam, -(baseSize/2)+pos, 0, baseSize, baseSize*0.1);
-            }
+          function draw() {
+            clear();
+            push();
+            beamMove(x, y, beam_pos*coeficient);
+            pendulumMove(0,0,pendulum_rot, beam_pos*coeficient);
+            pop();
+          }
 
-            function pendulumMove(x, y, rot, pos) {
-              translate(x+pos, y);
-              rotate(rot);
-              image(pendulum,-(baseSize*0.05),0,baseSize*0.1,baseSize*1.5);
-            }
+          function beamMove(x,y,pos){
+            translate(x,y);
+            image(beam, -(baseSize/2)+pos, 0, baseSize, baseSize*0.1);
+          }
 
-            function windowResized() {
-              resizeCanvas(windowWidth, windowHeight);
-            }
+          function pendulumMove(x, y, rot, pos) {
+            translate(x+pos, y);
+            rotate(rot+PI);
+            image(pendulum,-(baseSize*0.05),0,baseSize*0.1,baseSize*1.5);
+          }
+
+          function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+          }
         </script>
     <?php endif; ?>
 <?php endif;?>

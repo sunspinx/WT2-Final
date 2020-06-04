@@ -28,3 +28,21 @@
         <input type="submit" class="btn btn-primary" name="send" value="<?php Helper::translate($_COOKIE['language'],'send') ?>">
     </div>
 </form>
+<?php
+if (isset($_POST["send"]) && isset($_POST["email"])) {
+  $content = "
+  <html><body>
+  <h2>WEBTE2-final statistics</h2>
+  <p>Inverted pendulum: ". Db::$medoo->get("stats","visitors",["page_name"=>"pendulum"]) ."</p>
+  <p>Suspension: " . Db::$medoo->get("stats","visitors",["page_name"=>"suspension"]) . "</p>
+  <p>Ball & beam: " . Db::$medoo->get("stats","visitors",["page_name"=>"ballbeam"]) . "</p>
+  <p>Aircraft pitch: " . Db::$medoo->get("stats","visitors",["page_name"=>"aircraftpitch"]) . "</p>
+  <br>
+  <p>Send from WEBTE2-final page created by Vladislav Domin, Viktória Dominová, Peter Bašista, Eliška Bakaľárová</p>
+  </body></html>
+  ";
+
+  $mailer = new Mailer();
+  $mailer->sendSingleMail($_POST["email"],"noreply@webtefinal.fei","WEBTE2-final statictics",$content);
+}
+?>

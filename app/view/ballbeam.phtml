@@ -1,4 +1,4 @@
-<?php $medoo->update("stats",["visitors[+]" => 1],["page_name"=>"ballbeam"])?>
+<?php Db::$medoo->update("stats",["visitors[+]" => 1],["page_name"=>"ballbeam"])?>
 <h1><?php Helper::translate($_COOKIE['language'],"ballbeam") ?></h1>
 <form method="POST">
     <div class="form-group">
@@ -35,10 +35,10 @@ if(isset($_POST['send'])):
         ),
         'http' => array('ignore_errors' => true),
     );
-    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=invertedpendulum&r={$ir}&angle={$ia}&position={$ip}", false, stream_context_create($arrContextOptions));
+    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=ballbeam&r={$ir}&angle={$ia}&position={$ip}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
     if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
-        <div id="chart"></div>
+        <div id="chart" class="graph"></div>
         <script>
             var chart = new CanvasJS.Chart("chart", {
                 animationEnabled: true,
@@ -71,19 +71,24 @@ if(isset($_POST['send'])):
         </script>
     <?php endif;
     if(isset($_POST['animation']) && $_POST['animation'] = 1): ?>
-        <div id="animation"></div>
+        <div id='animationContainer' class="animation"></div>
         <script>
+            // nastavenie dlzky animacie
+            var time = 5000;
+            // nastavenie koeficientu prepočtu pohybu, rýchlosť pohybu "ball"
+            var coeficient = 4;
+
             let x, y, baseSize, counter = 0;
             let ball_pos = 0;
             let beam_angle = 0;
             var interval;
-            var position = $arr['position'];
-            var angle = $arr['angle'];
+            var position = <?= json_encode($arr['position']); ?>;
+            var angle = <?= json_encode($arr['angle']); ?>;
 
             function startInterval(){
               interval = setInterval(function(){
                 intervalRedraw();
-              }, 5000/count($arr['position']));
+              }, time/position.length);
             }
 
             function intervalRedraw() {
@@ -91,31 +96,32 @@ if(isset($_POST['send'])):
               beam_angle = angle[counter]['y'];
               redraw();
               counter++;
-              if (counter == count($arr['position'])) {
+              if (counter == position.length) {
                 clearInterval(interval);
               }
             }
 
             function preload() {
-              ball = loadImage('http://localhost:443/final/public/img/models/ball.svg');
-              beam = loadImage('http://localhost:443/final/public/img/models/beam.svg');
+              ball = loadImage('https://147.175.121.210:4480/final/public/img/models/ball.svg');
+              beam = loadImage('https://147.175.121.210:4480/final/public/img/models/beam.svg');
             }
 
             function setup() {
-              canvas=createCanvas(windowWidth, windowHeight);
-              canvas.parent('animation');
+              var width = document.getElementById('animationContainer').offsetWidth;
+              let myCanvas = createCanvas(width, 300);
+              myCanvas.parent('animationContainer');
               baseSize = width * 0.2;
               x = width * 0.5;
               y = height * 0.5;
+              startInterval();
             }
 
             function draw() {
               clear();
               push();
               beamMove(x, y, beam_angle);
-              ballMove(0,0, ball_pos);
+              ballMove(0,0, ball_pos*coeficient);
               pop();
-              startInterval();
             }
 
             function beamMove(x,y,rot){
