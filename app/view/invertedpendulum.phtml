@@ -33,8 +33,6 @@ if(isset($_POST['send'])):
     );
     $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=invertedpendulum&r={$ir}&position={$_SESSION['invertedpendulum']}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
-    array_shift($arr["position"]);
-    array_shift($arr["angle"]);
     Db::$medoo->insert("commands",[
       "command"=>"InvertedPendulum -> r = " . $_POST['r'],
       "output"=> gettype($arr)

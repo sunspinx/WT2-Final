@@ -98,7 +98,7 @@ class Language
         'description' => "Description:",
         'apikey' => "Authentication key",
         'modelname' => "Model name",
-        'rvalue' => '"R" value',
+        'rvalue' => 'New position',
         'initposition' => "Initialization position",
         'initangle' => "Initialization angle",
         'carposition' => "Car position",

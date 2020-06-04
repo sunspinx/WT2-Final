@@ -69,6 +69,8 @@ if(!empty($_GET)) {
         $angle = [];
         $continue = '['. (float)trim($arr3[0]).';'.(float)trim($arr3[1]).';'.(float)trim($arr3[2]).';'.(float)trim($arr3[3]).']';
 
+        array_shift($arr);
+        array_shift($arr2);
         for($i = 0; $i < sizeof($arr); $i++) {
             $pos[] = [
                 'y' => (float)trim($arr[$i]),
