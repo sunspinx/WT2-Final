@@ -141,12 +141,12 @@
 </form>
 <?php
 if (isset($_POST['pdfexport'])) {
-    $pdf = new Pdf('https://147.175.121.210:4480/final/index.php?p=api');
-
-    if (!$pdf->send('apiPage.pdf')) {
-      $error = $pdf->getError();
-      // ... handle error here
-    }
-
+    ob_start();
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Helvetica','',8);
+    $pdf->write("Tu bude apidoc");
+    $pdf->Output('D','ApiPage.pdf');
+    ob_end_flush();
 }
 ?>
