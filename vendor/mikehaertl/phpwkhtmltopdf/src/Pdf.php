@@ -2,7 +2,6 @@
 namespace mikehaertl\wkhtmlto;
 
 use mikehaertl\tmp\File;
-use mikehaertl\wkhtmlto\Pdf;
 
 /**
  * Pdf

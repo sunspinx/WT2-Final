@@ -15,6 +15,9 @@ require_once 'app/class/core/Fpdf.php';
 require_once 'app/class/core/Pdf.php';
 require_once 'app/class/Helper.php';
 
+require 'vendor/autoload.php';
+use mikehaertl\wkhtmlto\Pdf;
+
 include_once('config.php');
 
 
