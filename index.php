@@ -13,6 +13,7 @@ require_once 'app/class/core/Language.php';
 require_once 'app/class/core/Medoo.php';
 require_once 'app/class/core/Fpdf.php';
 require_once 'app/class/Helper.php';
+require_once 'app/class/Mailer.php';
 
 include_once('config.php');
 
