@@ -138,3 +138,18 @@
         </tr>
     </tbody>
 </table>
+<form method="POST">
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="pdfexport" value="<?php Helper::translate($_COOKIE['language'],'pdfexport') ?>">
+    </div>
+</form>
+<?php
+if (isset($_POST['pdfexport'])) {
+    $pdf = new Pdf('https://147.175.121.210:4480/final/index.php?p=api');
+
+    if (!$pdf->send('apiPage.pdf')) {
+      $error = $pdf->getError();
+      // ... handle error here
+    }
+}
+?>
