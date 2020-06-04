@@ -5,7 +5,7 @@
 <form method="POST">
     <div class="form-group">
         <label for="r">Nová poloha kyvadla</label>
-        <input type="number" class="form-control" name="r" id="r" required>
+        <input type="number" class="form-control" name="r" id="r" step="0.01" required>
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="animation" name="animation" value="1" checked>
@@ -21,6 +21,7 @@
 </form>
 <?php
 if(isset($_POST['send'])):
+    var_dump($_SESSION);
     $ir = trim($_POST['r']);
     $ia = 0;
     $ip = 0;
@@ -31,8 +32,9 @@ if(isset($_POST['send'])):
         ),
         'http' => array('ignore_errors' => true),
     );
-    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=invertedpendulum&r={$ir}&angle={$ia}&position={$ip}", false, stream_context_create($arrContextOptions));
+    $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=invertedpendulum&r={$ir}&position={$_SESSION['invertedpendulum']}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
+    $_SESSION['invertedpendulum'] = $arr['continue'];
     if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
         <div id="chart" class="graph"></div>
         <script>

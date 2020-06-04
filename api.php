@@ -8,6 +8,7 @@ require_once 'app/class/core/Router.php';
 require_once 'app/class/core/Db.php';
 require_once 'app/class/core/Language.php';
 require_once 'app/class/Helper.php';
+require_once 'app/class/Model.php';
 
 /**
  * Načíta danú triedu
@@ -48,19 +49,26 @@ if(!empty($_GET)) {
         return;
     }
     if($_GET['model'] == "invertedpendulum") {
-        if(!isset($_GET['angle']) || !(isset($_GET['position'])) || !(isset($_GET['r']))) {
+        if(!(isset($_GET['r']))) {
             http_response_code(422);
             echo json_encode([
                 'message' => 'Not all parameters were set.',
             ]);
             return;
         }
-        $out = trim(shell_exec("octave --no-gui --quiet shell/kyvadlo.txt {$_GET['r']} {$_GET['angle']} {$_GET['position']}"));
-        $arr = preg_split("/\\r\\n|\\r|\\n/", trim(explode("ANGLE", $out)[0]));
-        $arr2 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("ANGLE", $out)[1]));
+        $poss = '[0;0;0;0]';
+        if(isset($_GET['position']) && !empty($_GET['position'])) {
+            $poss = $_GET['position'];
+        }
+        $out = ltrim(shell_exec('octave --no-gui --quiet --eval "pkg load control;'. Model::getInvertedPendulum($_GET['r'], $poss) .'"'));
+        $arr = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[0]));
+        $arr2 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[1]));
+        $arr3 = preg_split("/\\r\\n|\\r|\\n/", trim(explode("------", $out)[2]));
         $init = 0.0;
         $pos = [];
         $angle = [];
+        $continue = '['. (float)trim($arr3[0]).';'.(float)trim($arr3[1]).';'.(float)trim($arr3[2]).';'.(float)trim($arr3[3]).']';
+
         for($i = 0; $i < sizeof($arr); $i++) {
             $pos[] = [
                 'y' => (float)trim($arr[$i]),
@@ -72,10 +80,12 @@ if(!empty($_GET)) {
             ];
             $init += 0.05;
         }
+
         http_response_code(200);
         echo json_encode([
             'position' => $pos,
             'angle' => $angle,
+            'continue' => $continue,
         ]);
         return;
     }
@@ -111,7 +121,7 @@ if(!empty($_GET)) {
         ]);
         return;
     }
-    if($_GET['model'] == "ballbeam") {
+    else if($_GET['model'] == "ballbeam") {
         if(!isset($_GET['angle']) || !(isset($_GET['position'])) || !(isset($_GET['r']))) {
             http_response_code(422);
             echo json_encode([
@@ -143,7 +153,7 @@ if(!empty($_GET)) {
         ]);
         return;
     }
-    if($_GET['model'] == "aircraftpitch") {
+    else if($_GET['model'] == "aircraftpitch") {
         if(!isset($_GET['angle']) || !(isset($_GET['position'])) || !(isset($_GET['r']))) {
             http_response_code(422);
             echo json_encode([

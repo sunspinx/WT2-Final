@@ -1,7 +1,7 @@
 <h1 class="pb-4"><?php Helper::translate($_COOKIE['language'],"api") ?></h1>
 <h2><?php Helper::translate($_COOKIE['language'],"invertedPendulum") ?> [GET]</h2>
 <label for="invertedpendulum">URL</label>
-<input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=invertedpendulum&r=(val)&position=(val)&angle=(val)">
+<input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=invertedpendulum&r=(val)&position=(val)">
 <label><?php Helper::translate($_COOKIE['language'],"params") ?></label>
 <table class="table table-dark table-striped table-hover">
     <thead>
@@ -26,10 +26,6 @@
         <tr>
             <td>position</td>
             <td><?php Helper::translate($_COOKIE['language'],"initposition") ?></td>
-        </tr>
-        <tr>
-            <td>angle</td>
-            <td><?php Helper::translate($_COOKIE['language'],"initangle") ?></td>
         </tr>
     </tbody>
 </table>
