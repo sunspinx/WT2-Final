@@ -1,3 +1,15 @@
+<?php
+if (isset($_POST['pdfexport'])) {
+    ob_clean();
+    ob_start();
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Helvetica','',8);
+    $pdf->write(5, "Tu bude apidoc");
+    $pdf->Output('D','ApiPage.pdf');
+    ob_end_flush();
+}
+?>
 <h1 class="pb-4"><?php Helper::translate($_COOKIE['language'],"api") ?></h1>
 <h2><?php Helper::translate($_COOKIE['language'],"invertedPendulum") ?> [GET]</h2>
 <label for="invertedpendulum">URL</label>
@@ -139,14 +151,3 @@
         <input type="submit" class="btn btn-primary" name="pdfexport" value="<?php Helper::translate($_COOKIE['language'],'pdfexport') ?>">
     </div>
 </form>
-<?php
-if (isset($_POST['pdfexport'])) {
-    ob_start();
-    $pdf = new FPDF();
-    $pdf->AddPage();
-    $pdf->SetFont('Helvetica','',8);
-    $pdf->write("Tu bude apidoc");
-    $pdf->Output('D','ApiPage.pdf');
-    ob_end_flush();
-}
-?>
