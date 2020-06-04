@@ -41,15 +41,15 @@ if (isset($_POST['pdfexport'])) {
 
     $pdf = new FPDF();
     $pdf->AddPage();
-    $pdf->SetFont('Helvetica','',11);
+    $pdf->SetFont('Helvetica','',8);
 
     foreach($header as $heading) {
-        $pdf->Cell(63,8,$heading,1);
+        $pdf->Cell(63,5,$heading,1);
     }
     foreach($result as $row) {
       $pdf->Ln();
       foreach($row as $column)
-        $pdf->Cell(63,8,$column,1);
+        $pdf->Cell(63,5,$column,1);
     }
     $pdf->Output('D','commandlog.pdf');
     ob_end_flush();
