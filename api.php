@@ -20,12 +20,6 @@ function autoLoadClass($class)
 }
 
 include_once('config.php');
-try {
-    Db::connect(HOSTNAME, DBNAME, USERNAME, PASSWORD);
-}
-catch(PDOException $e) {
-    echo($e->getMessage());
-}
 
 // Nastavenie jazyka
 if(!isset($_COOKIE['language']))
