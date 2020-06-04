@@ -25,3 +25,5 @@ r=str2double(arglist{1});
 disp(x(:,1));
 disp('ANGLE');
 disp(x(:,3));
+disp('A KURWA');
+disp(disp(x(size(x,1),:)));

@@ -4,15 +4,7 @@
 <h1><?php Helper::translate($_COOKIE['language'],"invertedPendulum") ?></h1>
 <form method="POST">
     <div class="form-group">
-        <label for="angle"><?php Helper::translate($_COOKIE['language'],"angle") ?></label>
-        <input type="number" class="form-control" name="angle" id="angle" required>
-    </div>
-    <div class="form-group">
-        <label for="position"><?php Helper::translate($_COOKIE['language'],"position") ?></label>
-        <input type="number" class="form-control" name="position" id="position" required>
-    </div>
-    <div class="form-group">
-        <label for="r">r</label>
+        <label for="r">Nová poloha kyvadla</label>
         <input type="number" class="form-control" name="r" id="r" required>
     </div>
     <div class="form-check">
@@ -29,7 +21,9 @@
 </form>
 <?php
 if(isset($_POST['send'])):
-    $ir = trim($_POST['r']); $ip = trim($_POST['position']); $ia = trim($_POST['angle']);
+    $ir = trim($_POST['r']);
+    $ia = 0;
+    $ip = 0;
     $arrContextOptions=array(
         "ssl"=>array(
             "verify_peer"=>false,
