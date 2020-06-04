@@ -44,42 +44,7 @@ if (isset($_POST['pdfexport'])) {
 <br>
 <h2><?php Helper::translate($_COOKIE['language'],"suspension") ?> [GET]</h2>
 <label for="invertedpendulum">URL</label>
-<input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=suspension&r=(val)&wheel=(val)&car=(val)">
-<label><?php Helper::translate($_COOKIE['language'],"params") ?></label>
-<table class="table table-dark table-striped table-hover">
-    <thead>
-        <tr>
-            <th>Argument</th>
-            <th><?php Helper::translate($_COOKIE['language'],"params") ?></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>key</td>
-            <td><?php Helper::translate($_COOKIE['language'],"apikey") ?></td>
-        </tr>
-        <tr>
-            <td>model</td>
-            <td><?php Helper::translate($_COOKIE['language'],"modelname") ?></td>
-        </tr>
-        <tr>
-            <td>r</td>
-            <td><?php Helper::translate($_COOKIE['language'],"rvalue") ?></td>
-        </tr>
-        <tr>
-            <td>wheel</td>
-            <td><?php Helper::translate($_COOKIE['language'],"initposition") ?></td>
-        </tr>
-        <tr>
-            <td>car</td>
-            <td><?php Helper::translate($_COOKIE['language'],"initposition") ?></td>
-        </tr>
-    </tbody>
-</table>
-<br>
-<h2><?php Helper::translate($_COOKIE['language'],"ballbeam") ?> [GET]</h2>
-<label for="invertedpendulum">URL</label>
-<input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=ballbeam&r=(val)&angle=(val)&position=(val)">
+<input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=suspension&r=(val)&position=(val)">
 <label><?php Helper::translate($_COOKIE['language'],"params") ?></label>
 <table class="table table-dark table-striped table-hover">
     <thead>
@@ -105,16 +70,12 @@ if (isset($_POST['pdfexport'])) {
             <td>position</td>
             <td><?php Helper::translate($_COOKIE['language'],"initposition") ?></td>
         </tr>
-        <tr>
-            <td>angle</td>
-            <td><?php Helper::translate($_COOKIE['language'],"initangle") ?></td>
-        </tr>
     </tbody>
 </table>
 <br>
-<h2><?php Helper::translate($_COOKIE['language'],"aircraftpitch") ?> [GET]</h2>
+<h2><?php Helper::translate($_COOKIE['language'],"ballbeam") ?> [GET]</h2>
 <label for="invertedpendulum">URL</label>
-<input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=aircraftpitch&r=(val)&plane=(val)&pitch=(val)">
+<input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=ballbeam&r=(val)&position=(val)">
 <label><?php Helper::translate($_COOKIE['language'],"params") ?></label>
 <table class="table table-dark table-striped table-hover">
     <thead>
@@ -137,12 +98,39 @@ if (isset($_POST['pdfexport'])) {
             <td><?php Helper::translate($_COOKIE['language'],"rvalue") ?></td>
         </tr>
         <tr>
-            <td>plane</td>
-            <td><?php Helper::translate($_COOKIE['language'],"initangle") ?></td>
+            <td>position</td>
+            <td><?php Helper::translate($_COOKIE['language'],"initposition") ?></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<h2><?php Helper::translate($_COOKIE['language'],"aircraftpitch") ?> [GET]</h2>
+<label for="invertedpendulum">URL</label>
+<input type="text" id="invertedpendulum" class="form-control mb-2" disabled value="https://147.175.121.210:4480/final/api.php?key=(key)&model=aircraftpitch&r=(val)&position=(val)">
+<label><?php Helper::translate($_COOKIE['language'],"params") ?></label>
+<table class="table table-dark table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Argument</th>
+            <th><?php Helper::translate($_COOKIE['language'],"params") ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>key</td>
+            <td><?php Helper::translate($_COOKIE['language'],"apikey") ?></td>
         </tr>
         <tr>
-            <td>pitch</td>
-            <td><?php Helper::translate($_COOKIE['language'],"initangle") ?></td>
+            <td>model</td>
+            <td><?php Helper::translate($_COOKIE['language'],"modelname") ?></td>
+        </tr>
+        <tr>
+            <td>r</td>
+            <td><?php Helper::translate($_COOKIE['language'],"rvalue") ?></td>
+        </tr>
+        <tr>
+            <td>position</td>
+            <td><?php Helper::translate($_COOKIE['language'],"initposition") ?></td>
         </tr>
     </tbody>
 </table>
