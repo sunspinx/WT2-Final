@@ -55,7 +55,10 @@ class Language
         'wrongrecipient' => "Príjemcov email bol zadaný chybne",
         'notsend' => "Email nebol odoslaný",
         'multisendproblem' => "Pri odosielaní správy na ",
-        'multierror' => " došlo k chybe."
+        'multierror' => " došlo k chybe.",
+        'pdfexport' => "Exportovať do PDF",
+        'csvexport' => "Exportovať do CSV",
+        'exportoption' => "Voľba exportu"
       ),
       'en' => array(
         'invertedPendulum' => "Inverted pendulum",
@@ -107,7 +110,10 @@ class Language
         'wrongrecipient' => "Recipient's email was entered incorrectly",
         'notsend' => "Email not sent",
         'multisendproblem' => "When sending a message to ",
-        'multierror' => " an error occurred."
+        'multierror' => " an error occurred.",
+        'pdfexport' => "Export to PDF",
+        'csvexport' => "Export to CSV",
+        'exportoption' => "Export option"
       )
     );
 
