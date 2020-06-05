@@ -60,7 +60,15 @@ tr.stats>td {
 }
 
 .animation, .graph {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
   width: 100%;
   height: 400px;
+}
+
+.animation {
+  height: 300px;
+}
+
+.animation>canvas {
+  background-color: white;
 }

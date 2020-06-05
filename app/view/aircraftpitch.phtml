@@ -3,7 +3,7 @@
 <form method="POST">
     <div class="form-group">
         <label for="r">Nový náklon lietadla</label>
-        <input type="number" class="form-control" name="r" id="r" required>
+        <input type="number" class="form-control" name="r" id="r" required autocomplete="off">
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="animation" name="animation" value="1" checked>
@@ -29,7 +29,83 @@ if(isset($_POST['send'])):
     );
     $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=aircraftpitch&r={$ir}&position={$_SESSION['aircraft']}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
+    $animation = (isset($_POST['animation'])) ? '; animation' : '';
+    $graph = (isset($_POST['graph'])) ? '; graph' : '';
+    Db::$medoo->insert("commands",[
+      "command"=>"Aircraft pitch -> r = " . $_POST['r'] . $animation . $graph,
+      "output"=> gettype($arr),
+      "success" => "1"
+    ]);
     $_SESSION['aircraft'] = $arr['continue'];
+    if(isset($_POST['animation']) && $_POST['animation'] = 1): ?>
+        <div id='animationContainer' class="animation"></div>
+        <script>
+            // nastavenie dlzky animacie
+            var time = 5000;
+
+            let x, y, baseSize, counter = 0;
+            var interval;
+            let plane_angle = 0;
+            let pitch_angle = 0;
+            var plane_data = <?= json_encode($arr['plane']); ?>;
+            var pitch_data = <?= json_encode($arr['pitch']); ?>;
+
+            function startInterval(){
+              interval = setInterval(function(){
+                intervalRedraw();
+              }, time/plane_data.length);
+            }
+
+            function intervalRedraw() {
+              plane_angle = plane_data[counter]['y'];
+              pitch_angle = pitch_data[counter]['y'];
+              redraw();
+              counter++;
+              if (counter == plane_data.length) {
+                clearInterval(interval);
+              }
+            }
+
+            function preload() {
+              plane_model = loadImage('https://147.175.121.210:4480/final/public/img/models/airplane.svg');
+              pitch_model = loadImage('https://147.175.121.210:4480/final/public/img/models/airplane-back.svg');
+            }
+
+            function setup() {
+              var width = document.getElementById('animationContainer').offsetWidth;
+              let myCanvas = createCanvas(width, 300);
+              myCanvas.parent('animationContainer');
+              baseSize = height * 0.6;
+              x = width * 0.5;
+              y = height * 0.5;
+              startInterval();
+            }
+
+            function draw() {
+              clear();
+              push();
+              airplane(x,y,radians(plane_angle));
+              airplaneBack(baseSize*0.53, 0, radians(pitch_angle));
+              pop();
+            }
+
+            function airplane(x,y,rot){
+              translate(x,y,rot);
+              rotate(rot);
+              image(plane_model, -baseSize, -(baseSize*0.57), baseSize*2, baseSize);
+            }
+
+            function airplaneBack(x, y, rot) {
+              translate(x, y);
+              rotate(rot);
+              image(pitch_model,0,0,baseSize*0.17,baseSize*0.02);
+            }
+
+            function windowResized() {
+              resizeCanvas(windowWidth, windowHeight);
+            }
+        </script>
+    <?php endif;
     if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
         <div id="chart" class="graph"></div>
         <script>
@@ -61,75 +137,6 @@ if(isset($_POST['send'])):
             chart.options.data[0].dataPoints = <?= json_encode($arr['plane']); ?>;
             chart.options.data[1].dataPoints = <?= json_encode($arr['pitch']); ?>;
             chart.render();
-        </script>
-    <?php endif;
-    if(isset($_POST['animation']) && $_POST['animation'] = 1): ?>
-        <div id='animationContainer' class="animation"></div>
-        <script>
-            // nastavenie dlzky animacie
-            var time = 5000;
-
-            let plane_angle = 0;
-            let pitch_angle = 0;
-            var plane = <?= json_encode($arr['plane']); ?>;
-            var pitch = <?= json_encode($arr['pitch']); ?>;
-            let x, y, baseSize, counter = 0;
-            var interval;
-
-            function startInterval(){
-              interval = setInterval(function(){
-                intervalRedraw();
-              }, time/plane.length);
-            }
-
-            function intervalRedraw() {
-              plane_angle = plane[counter]['y'];
-              pitch_angle = pitch[counter]['y'];
-              redraw();
-              counter++;
-              if (counter == plane.length) {
-                clearInterval(interval);
-              }
-            }
-
-            function preload() {
-              plane = loadImage('https://147.175.121.210:4480/final/public/img/models/airplane.svg');
-              pitch = loadImage('https://147.175.121.210:4480/final/public/img/models/airplane-back.svg');
-            }
-
-            function setup() {
-              var width = document.getElementById('animationContainer').offsetWidth;
-              let myCanvas = createCanvas(width, 300);
-              myCanvas.parent('animationContainer');
-              baseSize = width * 0.2;
-              x = width * 0.5;
-              y = height * 0.5;
-              startInterval();
-            }
-
-            function draw() {
-              clear();
-              push();
-              airplane(x,y,plane_angle);
-              airplaneBack(baseSize*0.53, 0, pitch_angle);
-              pop();
-            }
-
-            function airplane(x,y,rot){
-              translate(x,y,rot);
-              rotate(rot);
-              image(body, -baseSize, -(baseSize*0.57), baseSize*2, baseSize);
-            }
-
-            function airplaneBack(x, y, rot) {
-              translate(x, y);
-              rotate(rot);
-              image(back,0,0,baseSize*0.17,baseSize*0.02);
-            }
-
-            function windowResized() {
-              resizeCanvas(windowWidth, windowHeight);
-            }
         </script>
     <?php endif; ?>
 <?php endif;?>

@@ -3,7 +3,7 @@
 <form method="POST">
     <div class="form-group">
         <label for="r">Výška skokovej prekážky</label>
-        <input type="number" class="form-control" name="r" id="r" step="0.01" required>
+        <input type="number" class="form-control" name="r" id="r" step="0.01" required autocomplete="off">
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="animation" name="animation" value="1" checked>
@@ -29,45 +29,21 @@ if(isset($_POST['send'])):
     );
     $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=suspension&r={$ir}&position={$_SESSION['suspension']}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
+    $animation = (isset($_POST['animation'])) ? '; animation' : '';
+    $graph = (isset($_POST['graph'])) ? '; graph' : '';
+    Db::$medoo->insert("commands",[
+      "command"=>"Suspension -> r = " . $_POST['r'] . $animation . $graph,
+      "output"=> gettype($arr),
+      "success" => "1"
+    ]);
     $_SESSION['suspension'] = $arr['continue'];
-    if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
-        <div id="chart" class="graph"></div>
-        <script>
-            var chart = new CanvasJS.Chart("chart", {
-                animationEnabled: true,
-                exportEnabled: true,
-                theme: "dark2", // "light1", "light2", "dark1", "dark2"
-                zoomEnabled: true,
-                title:{
-                    text: "<?php Helper::translate($_COOKIE["language"],"suspensiongraph") ?>"
-                },
-                data: [{
-                    type: "line", //change type to bar, line, area, pie, etc
-                    //indexLabel: "{y}", //Shows y value on all Data Points
-                    indexLabelFontColor: "#5487c1",
-                    indexLabelPlacement: "outside",
-                    lineColor: "#5487c1",
-                    dataPoints: [{x:0,y:0}]
-                },{
-                    type: "line", //change type to bar, line, area, pie, etc
-                    //indexLabel: "{y}", //Shows y value on all Data Points
-                    indexLabelFontColor: "#dc8e39",
-                    indexLabelPlacement: "outside",
-                    lineColor: "#dc8e39",
-                    dataPoints: [{x:0,y:0}]
-                }]
-            });
-
-            chart.options.data[0].dataPoints = <?= json_encode($arr['wheel']); ?>;
-            chart.options.data[1].dataPoints = <?= json_encode($arr['car']); ?>;
-            chart.render();
-        </script>
-    <?php endif;
     if(isset($_POST['animation']) && $_POST['animation'] = 1): ?>
         <div id='animationContainer' class="animation"></div>
         <script>
             // nastavenie dlzky animacie
             var time = 5000;
+            // nastavenie koeficientu prepočtu pohybu, rýchlosť pohybu "car" and "wheel"
+            var coeficient = 20;
 
             let wheel_pos = 0;
             let sus_pos = 0;
@@ -101,16 +77,16 @@ if(isset($_POST['send'])):
               var width = document.getElementById('animationContainer').offsetWidth;
               let myCanvas = createCanvas(width, 300);
               myCanvas.parent('animationContainer');
-              baseSize = width * 0.2;
-              x = width * 0.5;
-              y = height * 0.5;
+              baseSize = height * 0.5;
+              x = width * 0.46;
+              y = height * 0.4;
               startInterval();
             }
 
             function draw() {
               clear();
               push();
-              susMove(x, y, sus_pos);
+              susMove(x, y, sus_pos*coeficient);
               wheelMove(0,0,wheel_pos);
               pop();
             }
@@ -128,6 +104,39 @@ if(isset($_POST['send'])):
             function windowResized() {
               resizeCanvas(windowWidth, windowHeight);
             }
+        </script>
+    <?php endif;
+    if(isset($_POST['graph']) && $_POST['graph'] = 1): ?>
+        <div id="chart" class="graph"></div>
+        <script>
+            var chart = new CanvasJS.Chart("chart", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "dark2", // "light1", "light2", "dark1", "dark2"
+                zoomEnabled: true,
+                title:{
+                    text: "<?php Helper::translate($_COOKIE["language"],"suspensiongraph") ?>"
+                },
+                data: [{
+                    type: "line", //change type to bar, line, area, pie, etc
+                    //indexLabel: "{y}", //Shows y value on all Data Points
+                    indexLabelFontColor: "#5487c1",
+                    indexLabelPlacement: "outside",
+                    lineColor: "#5487c1",
+                    dataPoints: [{x:0,y:0}]
+                },{
+                    type: "line", //change type to bar, line, area, pie, etc
+                    //indexLabel: "{y}", //Shows y value on all Data Points
+                    indexLabelFontColor: "#dc8e39",
+                    indexLabelPlacement: "outside",
+                    lineColor: "#dc8e39",
+                    dataPoints: [{x:0,y:0}]
+                }]
+            });
+
+            chart.options.data[0].dataPoints = <?= json_encode($arr['wheel']); ?>;
+            chart.options.data[1].dataPoints = <?= json_encode($arr['car']); ?>;
+            chart.render();
         </script>
     <?php endif; ?>
 <?php endif;?>
