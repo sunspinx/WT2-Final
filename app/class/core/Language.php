@@ -39,7 +39,7 @@ class Language
         '404' => "Stránka, ktorú sa snažíte navštíviť neexistuje.",
         'type_command' => "Zadajte príkaz:",
         'output' => "Výstup:",
-        'params' => "Parametre:",
+        'params' => "Parametre",
         'description' => "Popis:",
         'apikey' => "Kľúč pre overenie",
         'modelname' => "Názov modelu",

@@ -3,6 +3,7 @@
 namespace Soundasleep;
 
 class Html2Text {
+	private static $lastlength;
 
 	public static function defaultOptions() {
 		return array(
@@ -476,6 +477,12 @@ class Html2Text {
 				}
 				break;
 
+			case "input":
+				if ($node->getAttribute("value")) {
+					$output = $node->getAttribute("value") . "\n";
+				}
+				break;
+
 			case "li":
 				$output .= "\n";
 				break;
@@ -495,6 +502,11 @@ class Html2Text {
 
 				// add another leading newline and trailing newlines
 				$output = "\n" . $output . "\n\n";
+				break;
+			case 'th':
+			case 'td':
+				$spaces = (strlen($output)<10) ? str_repeat(" ", 10-strlen($output)) : "" ;
+				$output = $output . $spaces;
 				break;
 			default:
 				// do nothing

@@ -36,33 +36,40 @@ if(isset($_POST['send'])):
 <?php endif;
 if (isset($_POST['pdfexport'])) {
     ob_start();
-    $result = Db::$medoo->select("commands",["date","command","output"],[]);
-    $header = array('Date','Command','Output');
+    $result = Db::$medoo->select("commands",["date","command","output","success","error"],[]);
+    $header = array('Date','Command','Output',"Success","Error");
 
-    $pdf = new FPDF();
+    $pdf = new tFPDF();
     $pdf->AddPage();
-    $pdf->SetFont('Helvetica','',8);
+    $pdf->AddFont('AnonymousPro','','AnonymousPro-Regular.ttf',true);
+    $pdf->SetFont('AnonymousPro','',8);
 
-    foreach($header as $heading) {
-        $pdf->Cell(63,5,$heading,1);
-    }
+    $pdf->Cell(34,5,$header[0],1);
+    $pdf->Cell(87,5,$header[1],1);
+    $pdf->Cell(34,5,$header[2],1);
+    $pdf->Cell(17,5,$header[3],1);
+    $pdf->Cell(17,5,$header[4],1);
+
     foreach($result as $row) {
       $pdf->Ln();
-      foreach($row as $column)
-        $pdf->Cell(63,5,$column,1);
+      $pdf->Cell(34,5,$row["date"],1);
+      $pdf->Cell(87,5,$row["command"],1);
+      $pdf->Cell(34,5,$row["output"],1);
+      $pdf->Cell(17,5,$row["success"],1);
+      $pdf->Cell(17,5,$row["error"],1);
     }
     $pdf->Output('D','commandlog.pdf');
     ob_end_flush();
 }
 if (isset($_POST['csvexport'])) {
-    $result = Db::$medoo->select("commands",["date","command","output"],[]);
+    $result = Db::$medoo->select("commands",["date","command","output","success","error"],[]);
 
     ob_clean();
     ob_start();
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename=commandlog.csv');
     $output = fopen('php://output', 'w');
-    fputcsv($output, array('Date', 'Command', 'Output'));
+    fputcsv($output, array('Date', 'Command', 'Output',"Success","Error"));
     if (count($result) > 0) {
         foreach ($result as $row) {
             fputcsv($output, $row);
