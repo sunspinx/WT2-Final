@@ -74,6 +74,7 @@ class Language
           'sitemaptasks' => 'Obsahuje tabuľku rozdelenia úloh spolu s člemni, ktorí danú úlohu vypracovali.',
           'technicaldoc' => 'Technická dokumentácia',
           'install' => 'Inštalácia',
+          'graphtime' => "Čas vykonávania animácie a grafu"
       ),
       'en' => array(
         'invertedPendulum' => "Inverted pendulum",
@@ -144,6 +145,7 @@ class Language
           'sitemaptasks' => 'Contains a table of division of tasks together with the members who developed the task.',
           'technicaldoc' => 'Technical documentation',
           'install' => 'Installation',
+          'graphtime' => "Animation and graph execution time"
       )
     );
 

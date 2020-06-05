@@ -4,6 +4,11 @@
         <label for="r"><?php Helper::translate($_COOKIE['language'],"rballbeam") ?></label>
         <input type="number" class="form-control" name="r" id="r" step="0.01" required autocomplete="off">
     </div>
+    <div class="form-group">
+        <label for="time"><?php Helper::translate($_COOKIE['language'],"graphtime") ?></label>
+        <input type="range" class="form-control" name="time" id="time" min="5" max="20" step="0.05" value="5" onchange="changeTime(this.value)" required>
+        <p id="timetext"></p>
+    </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="animation" name="animation" value="1" checked>
         <label for="animation"><?php Helper::translate($_COOKIE['language'],"animation") ?></label>
@@ -29,6 +34,7 @@ if(isset($_POST['send'])):
     );
     $arr = file_get_contents("https://localhost:443/final/api.php?key=KHt9t83cmV6pfcyfSbcB9jyG7TnJMySYT28CUv2jSMN9RrNj&model=ballbeam&r={$ir}&position={$_SESSION['ballbeam']}", false, stream_context_create($arrContextOptions));
     $arr = json_decode($arr, true);
+    $time = (isset($_POST['time'])) ? $_POST['time']*1000 : "5000";
     $animation = (isset($_POST['animation'])) ? '; animation' : '';
     $graph = (isset($_POST['graph'])) ? '; graph' : '';
     Db::$medoo->insert("commands",[
@@ -41,7 +47,7 @@ if(isset($_POST['send'])):
         <div id='animationContainer' class="animation"></div>
         <script>
             // nastavenie dlzky animacie
-            var time = 5000;
+            var time = <?= $time ?>;
             // nastavenie koeficientu prepočtu pohybu, rýchlosť pohybu "ball"
             var coeficient = 4;
             // nastavenie koeficientu prepočtu pohybu, rýchlosť pohybu "beam"
@@ -114,6 +120,7 @@ if(isset($_POST['send'])):
         <script>
             var chart = new CanvasJS.Chart("chart", {
                 animationEnabled: true,
+                animationDuration: <?= $time ?>,
                 exportEnabled: true,
                 theme: "dark2", // "light1", "light2", "dark1", "dark2"
                 zoomEnabled: true,
