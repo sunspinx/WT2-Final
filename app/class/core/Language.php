@@ -72,6 +72,8 @@ class Language
           'sitemapapi' => 'Obsahuje popis vytvoreného api spolu s príkladom URL adresy a s popisom jednotlivých parametrov. Na tejto podsránke je možné si danú API dokumentáciu stiahnuť vo formáte PDF.',
           'sitemapstats' => 'Obsahuje štatistiky zobrazenia jednotlivých modelov. Ponúka možnosť zaslania týchto infomácii na vybraný email.',
           'sitemaptasks' => 'Obsahuje tabuľku rozdelenia úloh spolu s člemni, ktorí danú úlohu vypracovali.',
+          'technicaldoc' => 'Technická dokumentácia',
+          'install' => 'Inštalácia',
       ),
       'en' => array(
         'invertedPendulum' => "Inverted pendulum",
@@ -140,6 +142,8 @@ class Language
           'sitemapapi' => 'Contains description of API with URL examples and description of each parameter. Also you can download this documentation in .PDF format.',
           'sitemapstats' => 'Contains statistics of usage of each model. There is possibility to send those statistics to email.',
           'sitemaptasks' => 'Contains a table of division of tasks together with the members who developed the task.',
+          'technicaldoc' => 'Technical documentation',
+          'install' => 'Installation',
       )
     );
 
