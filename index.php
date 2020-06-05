@@ -1,9 +1,6 @@
 <?php
 session_start();
 mb_internal_encoding("UTF-8");
-ini_set('display_errors', 1); // Pri produkcii vypnut
-error_reporting(E_ERROR | E_WARNING | E_PARSE); // Pri produkcii vypnut
-
 
 // Import základných tried pre fungovanie webu
 require_once 'app/class/core/Asset.php';
@@ -31,10 +28,11 @@ function autoLoadClass($class)
 Db::connect(HOSTNAME, USERNAME, PASSWORD, DBNAME);
 
 require_once 'vendor/autoload.php';
-
 // Nastavenie jazyka
-if(!isset($_COOKIE['language']))
+if(!isset($_COOKIE['language'])) {
     Helper::setLanguage();
+    header("Refresh:0");
+}
 // Nastavanie priecinka pre assety (js/css etc.)
 Asset::setRootDir("/final/public");
 // Spracovanie URL a nastavenie pohladu

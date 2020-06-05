@@ -1,8 +1,7 @@
-<?php Db::$medoo->update("stats",["visitors[+]" => 1],["page_name"=>"ballbeam"])?>
 <h1><?php Helper::translate($_COOKIE['language'],"ballbeam") ?></h1>
 <form method="POST">
     <div class="form-group">
-        <label for="r">Nová poloha guličky</label>
+        <label for="r"><?php Helper::translate($_COOKIE['language'],"rballbeam") ?></label>
         <input type="number" class="form-control" name="r" id="r" step="0.01" required autocomplete="off">
     </div>
     <div class="form-check">
@@ -19,6 +18,7 @@
 </form>
 <?php
 if(isset($_POST['send'])):
+    Db::$medoo->update("stats",["visitors[+]" => 1],["page_name"=>"ballbeam"]);
     $ir = trim($_POST['r']);
     $arrContextOptions=array(
         "ssl"=>array(
