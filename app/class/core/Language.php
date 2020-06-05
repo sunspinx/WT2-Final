@@ -58,7 +58,8 @@ class Language
         'multierror' => " došlo k chybe.",
         'pdfexport' => "Exportovať do PDF",
         'csvexport' => "Exportovať do CSV",
-        'exportoption' => "Voľba exportu požiadavok do CAS"
+        'exportoption' => "Voľba exportu požiadavok do CAS",
+        'sitemap' => "Mapa stránky"
       ),
       'en' => array(
         'invertedPendulum' => "Inverted pendulum",
@@ -113,7 +114,8 @@ class Language
         'multierror' => " an error occurred.",
         'pdfexport' => "Export to PDF",
         'csvexport' => "Export to CSV",
-        'exportoption' => "Option to export requests to CAS"
+        'exportoption' => "Option to export requests to CAS",
+        'sitemap' => "Sitemap"
       )
     );
 
