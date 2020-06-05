@@ -1,0 +1,7 @@
+{
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0",
+        "mikehaertl/phpwkhtmltopdf": "^2.4",
+        "soundasleep/html2text": "^1.1"
+    }
+}

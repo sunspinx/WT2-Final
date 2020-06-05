@@ -1,0 +1,1 @@
+SetEnvIfNoCase REQUEST_URI ^/index.php$ no-gzip dont-vary

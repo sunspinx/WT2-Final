@@ -9,9 +9,10 @@ if(isset($_GET['lang'])) {
 ?>
 
 <!doctype html>
-<html lang="sk">
+<html lang="sk" dir="ltr">
 <head>
     <title>Final task</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= Asset::get('css/bootstrap.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?= Asset::get('css/custom.css') ?>" type="text/css">
@@ -22,7 +23,7 @@ if(isset($_GET['lang'])) {
     <script src="<?= Asset::get('js/animation.min.js') ?>"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
-
+<body>
 <?php
 include_once('app/view/nav.phtml');
 ?>
@@ -37,3 +38,5 @@ include_once('app/view/nav.phtml');
 <footer class="bg-dark">
     Copyright (c) Vladislav Domin
 </footer>
+</body>
+</html>
