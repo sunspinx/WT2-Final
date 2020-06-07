@@ -19,8 +19,6 @@ if (isset($_POST['pdfexport'])) {
 
     $text = \Soundasleep\Html2Text::convert($apicontent);
 
-    var_dump($text);
-
     ob_start();
     $pdf = new tFPDF();
     $pdf->AddPage();
